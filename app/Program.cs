@@ -1,5 +1,7 @@
 using System;
 using Gtk;
+using app.Views;
+using app.Views.Ui;
 
 namespace app
 {
@@ -9,12 +11,13 @@ namespace app
         public static void Main(string[] args)
         {
             Application.Init();
+            AppTheme.Apply();
 
-            var app = new Application("org.app.app", GLib.ApplicationFlags.None);
-            app.Register(GLib.Cancellable.Current);
+            var gtkApp = new Application("org.eps.tracker", GLib.ApplicationFlags.None);
+            gtkApp.Register(GLib.Cancellable.Current);
 
             var win = new MainWindow();
-            app.AddWindow(win);
+            gtkApp.AddWindow(win);
 
             win.Show();
             Application.Run();
