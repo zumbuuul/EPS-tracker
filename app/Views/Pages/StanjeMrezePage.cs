@@ -11,7 +11,7 @@ namespace app.Views.Pages
             : base("Stanje mreze", "Proizvodnja, distribucija, gubici i potrosnja po stanici.", showStatus)
         {
             AddFilter(ViewFactory.Search("Pretraga stanice"));
-            AddFilter(ViewFactory.Combo("Svi statusi", "STABILNO", "OPTERECENO", "PREKID", "ODRZAVANJE"));
+  
 
             AddAction("Dodaj", "list-add", "Novo stanje mreze", (sender, args) =>
                 OpenDialog(new StanjeDialog(DialogParent), "Stanje mreze je spremno za cuvanje kroz service sloj."));

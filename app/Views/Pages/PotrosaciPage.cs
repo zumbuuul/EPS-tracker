@@ -12,7 +12,6 @@ namespace app.Views.Pages
         {
             AddFilter(ViewFactory.Search("Pretraga potrosaca"));
             AddFilter(ViewFactory.Combo("Svi tipovi", "DOMACINSTVO", "FIRMA", "INSTITUCIJA", "JAVNA_RASVETA"));
-            AddFilter(ViewFactory.Combo("Svi statusi", "AKTIVAN", "NEAKTIVAN"));
 
             AddAction("Dodaj", "list-add", "Novi potrosac", (sender, args) =>
                 OpenDialog(new PotrosacDialog(DialogParent), "Potrosac je spreman za cuvanje kroz service sloj."));

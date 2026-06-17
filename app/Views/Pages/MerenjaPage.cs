@@ -12,7 +12,6 @@ namespace app.Views.Pages
         {
             AddFilter(ViewFactory.Search("Pretraga merenja"));
             AddFilter(ViewFactory.Combo("Svi izvori", "RUCNO_OCITAVANJE", "PAMETNO_BROJILO"));
-            AddFilter(ViewFactory.Combo("Validacija", "Sva", "D", "N"));
 
             AddAction("Dodaj", "list-add", "Novo merenje", (sender, args) =>
                 OpenDialog(new MerenjeDialog(DialogParent), "Merenje je spremno za cuvanje kroz service sloj."));

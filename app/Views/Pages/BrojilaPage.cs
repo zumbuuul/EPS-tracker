@@ -12,7 +12,6 @@ namespace app.Views.Pages
         {
             AddFilter(ViewFactory.Search("Pretraga brojila"));
             AddFilter(ViewFactory.Combo("Svi tipovi", "JEDNOFAZNO", "TROFAZNO", "PAMETNO", "MEHANICKO", "RASVETNO"));
-            AddFilter(ViewFactory.Combo("Svi statusi", "AKTIVNO", "ZAMENJENO", "NEAKTIVNO"));
 
             AddAction("Dodaj", "list-add", "Novo brojilo", (sender, args) =>
                 OpenDialog(new BrojiloDialog(DialogParent), "Brojilo je spremno za cuvanje kroz service sloj."));
