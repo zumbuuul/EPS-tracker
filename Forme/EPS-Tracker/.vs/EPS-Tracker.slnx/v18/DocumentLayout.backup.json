@@ -1,0 +1,525 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\usern\\source\\repos\\EPS-Tracker\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{5A883ECE-FA14-45DE-8A1B-E0194B2A1C65}|EPS-Tracker\\EPS-Tracker.csproj|c:\\users\\usern\\source\\repos\\eps-tracker\\eps-tracker\\merenjeizmeniforma.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5A883ECE-FA14-45DE-8A1B-E0194B2A1C65}|EPS-Tracker\\EPS-Tracker.csproj|solutionrelative:eps-tracker\\merenjeizmeniforma.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5A883ECE-FA14-45DE-8A1B-E0194B2A1C65}|EPS-Tracker\\EPS-Tracker.csproj|c:\\users\\usern\\source\\repos\\eps-tracker\\eps-tracker\\merenjeizmeniforma.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5A883ECE-FA14-45DE-8A1B-E0194B2A1C65}|EPS-Tracker\\EPS-Tracker.csproj|solutionrelative:eps-tracker\\merenjeizmeniforma.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5A883ECE-FA14-45DE-8A1B-E0194B2A1C65}|EPS-Tracker\\EPS-Tracker.csproj|c:\\users\\usern\\source\\repos\\eps-tracker\\eps-tracker\\merenjeizmeniforma.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{5A883ECE-FA14-45DE-8A1B-E0194B2A1C65}|EPS-Tracker\\EPS-Tracker.csproj|solutionrelative:eps-tracker\\merenjeizmeniforma.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5A883ECE-FA14-45DE-8A1B-E0194B2A1C65}|EPS-Tracker\\EPS-Tracker.csproj|c:\\users\\usern\\source\\repos\\eps-tracker\\eps-tracker\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5A883ECE-FA14-45DE-8A1B-E0194B2A1C65}|EPS-Tracker\\EPS-Tracker.csproj|solutionrelative:eps-tracker\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5A883ECE-FA14-45DE-8A1B-E0194B2A1C65}|EPS-Tracker\\EPS-Tracker.csproj|c:\\users\\usern\\source\\repos\\eps-tracker\\eps-tracker\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{5A883ECE-FA14-45DE-8A1B-E0194B2A1C65}|EPS-Tracker\\EPS-Tracker.csproj|solutionrelative:eps-tracker\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5A883ECE-FA14-45DE-8A1B-E0194B2A1C65}|EPS-Tracker\\EPS-Tracker.csproj|c:\\users\\usern\\source\\repos\\eps-tracker\\eps-tracker\\mapiranja\\merenjemapiranja.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5A883ECE-FA14-45DE-8A1B-E0194B2A1C65}|EPS-Tracker\\EPS-Tracker.csproj|solutionrelative:eps-tracker\\mapiranja\\merenjemapiranja.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5A883ECE-FA14-45DE-8A1B-E0194B2A1C65}|EPS-Tracker\\EPS-Tracker.csproj|c:\\users\\usern\\source\\repos\\eps-tracker\\eps-tracker\\eps-tracker.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{5A883ECE-FA14-45DE-8A1B-E0194B2A1C65}|EPS-Tracker\\EPS-Tracker.csproj|solutionrelative:eps-tracker\\eps-tracker.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5A883ECE-FA14-45DE-8A1B-E0194B2A1C65}|EPS-Tracker\\EPS-Tracker.csproj|c:\\users\\usern\\source\\repos\\eps-tracker\\eps-tracker\\dtomanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5A883ECE-FA14-45DE-8A1B-E0194B2A1C65}|EPS-Tracker\\EPS-Tracker.csproj|solutionrelative:eps-tracker\\dtomanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5A883ECE-FA14-45DE-8A1B-E0194B2A1C65}|EPS-Tracker\\EPS-Tracker.csproj|c:\\users\\usern\\source\\repos\\eps-tracker\\eps-tracker\\merenjedodajforma.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5A883ECE-FA14-45DE-8A1B-E0194B2A1C65}|EPS-Tracker\\EPS-Tracker.csproj|solutionrelative:eps-tracker\\merenjedodajforma.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5A883ECE-FA14-45DE-8A1B-E0194B2A1C65}|EPS-Tracker\\EPS-Tracker.csproj|c:\\users\\usern\\source\\repos\\eps-tracker\\eps-tracker\\merenjedodajforma.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5A883ECE-FA14-45DE-8A1B-E0194B2A1C65}|EPS-Tracker\\EPS-Tracker.csproj|solutionrelative:eps-tracker\\merenjedodajforma.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5A883ECE-FA14-45DE-8A1B-E0194B2A1C65}|EPS-Tracker\\EPS-Tracker.csproj|c:\\users\\usern\\source\\repos\\eps-tracker\\eps-tracker\\merenjedodajforma.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{5A883ECE-FA14-45DE-8A1B-E0194B2A1C65}|EPS-Tracker\\EPS-Tracker.csproj|solutionrelative:eps-tracker\\merenjedodajforma.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5A883ECE-FA14-45DE-8A1B-E0194B2A1C65}|EPS-Tracker\\EPS-Tracker.csproj|c:\\users\\usern\\source\\repos\\eps-tracker\\eps-tracker\\dtos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5A883ECE-FA14-45DE-8A1B-E0194B2A1C65}|EPS-Tracker\\EPS-Tracker.csproj|solutionrelative:eps-tracker\\dtos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5A883ECE-FA14-45DE-8A1B-E0194B2A1C65}|EPS-Tracker\\EPS-Tracker.csproj|c:\\users\\usern\\source\\repos\\eps-tracker\\eps-tracker\\entiteti\\brojilo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5A883ECE-FA14-45DE-8A1B-E0194B2A1C65}|EPS-Tracker\\EPS-Tracker.csproj|solutionrelative:eps-tracker\\entiteti\\brojilo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5A883ECE-FA14-45DE-8A1B-E0194B2A1C65}|EPS-Tracker\\EPS-Tracker.csproj|c:\\users\\usern\\source\\repos\\eps-tracker\\eps-tracker\\mapiranja\\brojilomapiranja.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5A883ECE-FA14-45DE-8A1B-E0194B2A1C65}|EPS-Tracker\\EPS-Tracker.csproj|solutionrelative:eps-tracker\\mapiranja\\brojilomapiranja.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5A883ECE-FA14-45DE-8A1B-E0194B2A1C65}|EPS-Tracker\\EPS-Tracker.csproj|c:\\users\\usern\\source\\repos\\eps-tracker\\eps-tracker\\entiteti\\merenje.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5A883ECE-FA14-45DE-8A1B-E0194B2A1C65}|EPS-Tracker\\EPS-Tracker.csproj|solutionrelative:eps-tracker\\entiteti\\merenje.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5A883ECE-FA14-45DE-8A1B-E0194B2A1C65}|EPS-Tracker\\EPS-Tracker.csproj|c:\\users\\usern\\source\\repos\\eps-tracker\\eps-tracker\\povezipotrosacabrojiloforma.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{5A883ECE-FA14-45DE-8A1B-E0194B2A1C65}|EPS-Tracker\\EPS-Tracker.csproj|solutionrelative:eps-tracker\\povezipotrosacabrojiloforma.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5A883ECE-FA14-45DE-8A1B-E0194B2A1C65}|EPS-Tracker\\EPS-Tracker.csproj|c:\\users\\usern\\source\\repos\\eps-tracker\\eps-tracker\\povezipotrosacabrojiloforma.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5A883ECE-FA14-45DE-8A1B-E0194B2A1C65}|EPS-Tracker\\EPS-Tracker.csproj|solutionrelative:eps-tracker\\povezipotrosacabrojiloforma.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5A883ECE-FA14-45DE-8A1B-E0194B2A1C65}|EPS-Tracker\\EPS-Tracker.csproj|c:\\users\\usern\\source\\repos\\eps-tracker\\eps-tracker\\povezipotrosacabrojiloforma.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5A883ECE-FA14-45DE-8A1B-E0194B2A1C65}|EPS-Tracker\\EPS-Tracker.csproj|solutionrelative:eps-tracker\\povezipotrosacabrojiloforma.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5A883ECE-FA14-45DE-8A1B-E0194B2A1C65}|EPS-Tracker\\EPS-Tracker.csproj|c:\\users\\usern\\source\\repos\\eps-tracker\\eps-tracker\\mapiranja\\potrosacmapiranja.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5A883ECE-FA14-45DE-8A1B-E0194B2A1C65}|EPS-Tracker\\EPS-Tracker.csproj|solutionrelative:eps-tracker\\mapiranja\\potrosacmapiranja.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5A883ECE-FA14-45DE-8A1B-E0194B2A1C65}|EPS-Tracker\\EPS-Tracker.csproj|c:\\users\\usern\\source\\repos\\eps-tracker\\eps-tracker\\entiteti\\potrosac.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5A883ECE-FA14-45DE-8A1B-E0194B2A1C65}|EPS-Tracker\\EPS-Tracker.csproj|solutionrelative:eps-tracker\\entiteti\\potrosac.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5A883ECE-FA14-45DE-8A1B-E0194B2A1C65}|EPS-Tracker\\EPS-Tracker.csproj|c:\\users\\usern\\source\\repos\\eps-tracker\\eps-tracker\\brojiloizmeniforma.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5A883ECE-FA14-45DE-8A1B-E0194B2A1C65}|EPS-Tracker\\EPS-Tracker.csproj|solutionrelative:eps-tracker\\brojiloizmeniforma.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5A883ECE-FA14-45DE-8A1B-E0194B2A1C65}|EPS-Tracker\\EPS-Tracker.csproj|c:\\users\\usern\\source\\repos\\eps-tracker\\eps-tracker\\brojiloizmeniforma.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5A883ECE-FA14-45DE-8A1B-E0194B2A1C65}|EPS-Tracker\\EPS-Tracker.csproj|solutionrelative:eps-tracker\\brojiloizmeniforma.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5A883ECE-FA14-45DE-8A1B-E0194B2A1C65}|EPS-Tracker\\EPS-Tracker.csproj|c:\\users\\usern\\source\\repos\\eps-tracker\\eps-tracker\\brojiloizmeniforma.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{5A883ECE-FA14-45DE-8A1B-E0194B2A1C65}|EPS-Tracker\\EPS-Tracker.csproj|solutionrelative:eps-tracker\\brojiloizmeniforma.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5A883ECE-FA14-45DE-8A1B-E0194B2A1C65}|EPS-Tracker\\EPS-Tracker.csproj|c:\\users\\usern\\source\\repos\\eps-tracker\\eps-tracker\\brojilododajforma.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{5A883ECE-FA14-45DE-8A1B-E0194B2A1C65}|EPS-Tracker\\EPS-Tracker.csproj|solutionrelative:eps-tracker\\brojilododajforma.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5A883ECE-FA14-45DE-8A1B-E0194B2A1C65}|EPS-Tracker\\EPS-Tracker.csproj|c:\\users\\usern\\source\\repos\\eps-tracker\\eps-tracker\\brojilododajforma.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5A883ECE-FA14-45DE-8A1B-E0194B2A1C65}|EPS-Tracker\\EPS-Tracker.csproj|solutionrelative:eps-tracker\\brojilododajforma.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5A883ECE-FA14-45DE-8A1B-E0194B2A1C65}|EPS-Tracker\\EPS-Tracker.csproj|c:\\users\\usern\\source\\repos\\eps-tracker\\eps-tracker\\potrosacizmeniforma.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5A883ECE-FA14-45DE-8A1B-E0194B2A1C65}|EPS-Tracker\\EPS-Tracker.csproj|solutionrelative:eps-tracker\\potrosacizmeniforma.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5A883ECE-FA14-45DE-8A1B-E0194B2A1C65}|EPS-Tracker\\EPS-Tracker.csproj|c:\\users\\usern\\source\\repos\\eps-tracker\\eps-tracker\\potrosacizmeniforma.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5A883ECE-FA14-45DE-8A1B-E0194B2A1C65}|EPS-Tracker\\EPS-Tracker.csproj|solutionrelative:eps-tracker\\potrosacizmeniforma.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5A883ECE-FA14-45DE-8A1B-E0194B2A1C65}|EPS-Tracker\\EPS-Tracker.csproj|c:\\users\\usern\\source\\repos\\eps-tracker\\eps-tracker\\app.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "RelativeMoniker": "D:0:0:{5A883ECE-FA14-45DE-8A1B-E0194B2A1C65}|EPS-Tracker\\EPS-Tracker.csproj|solutionrelative:eps-tracker\\app.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5A883ECE-FA14-45DE-8A1B-E0194B2A1C65}|EPS-Tracker\\EPS-Tracker.csproj|c:\\users\\usern\\source\\repos\\eps-tracker\\eps-tracker\\datalayer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5A883ECE-FA14-45DE-8A1B-E0194B2A1C65}|EPS-Tracker\\EPS-Tracker.csproj|solutionrelative:eps-tracker\\datalayer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5A883ECE-FA14-45DE-8A1B-E0194B2A1C65}|EPS-Tracker\\EPS-Tracker.csproj|c:\\users\\usern\\source\\repos\\eps-tracker\\eps-tracker\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5A883ECE-FA14-45DE-8A1B-E0194B2A1C65}|EPS-Tracker\\EPS-Tracker.csproj|solutionrelative:eps-tracker\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Form1.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\usern\\source\\repos\\EPS-Tracker\\EPS-Tracker\\Form1.cs",
+              "RelativeDocumentMoniker": "EPS-Tracker\\Form1.cs",
+              "ToolTip": "C:\\Users\\usern\\source\\repos\\EPS-Tracker\\EPS-Tracker\\Form1.cs [Design]",
+              "RelativeToolTip": "EPS-Tracker\\Form1.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-17T14:57:42.252Z",
+              "IsPinned": true,
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "MerenjeIzmeniForma.Designer.cs",
+              "DocumentMoniker": "C:\\Users\\usern\\source\\repos\\EPS-Tracker\\EPS-Tracker\\MerenjeIzmeniForma.Designer.cs",
+              "RelativeDocumentMoniker": "EPS-Tracker\\MerenjeIzmeniForma.Designer.cs",
+              "ToolTip": "C:\\Users\\usern\\source\\repos\\EPS-Tracker\\EPS-Tracker\\MerenjeIzmeniForma.Designer.cs",
+              "RelativeToolTip": "EPS-Tracker\\MerenjeIzmeniForma.Designer.cs",
+              "ViewState": "AgIAAGgAAAAAAAAAAAAEwHoAAAA2AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-17T18:12:57.006Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "MerenjeIzmeniForma.cs",
+              "DocumentMoniker": "C:\\Users\\usern\\source\\repos\\EPS-Tracker\\EPS-Tracker\\MerenjeIzmeniForma.cs",
+              "RelativeDocumentMoniker": "EPS-Tracker\\MerenjeIzmeniForma.cs",
+              "ToolTip": "C:\\Users\\usern\\source\\repos\\EPS-Tracker\\EPS-Tracker\\MerenjeIzmeniForma.cs",
+              "RelativeToolTip": "EPS-Tracker\\MerenjeIzmeniForma.cs",
+              "ViewState": "AgIAAFkAAAAAAAAAAAAcwGkAAAAHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-17T18:08:26.228Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "MerenjeIzmeniForma.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\usern\\source\\repos\\EPS-Tracker\\EPS-Tracker\\MerenjeIzmeniForma.cs",
+              "RelativeDocumentMoniker": "EPS-Tracker\\MerenjeIzmeniForma.cs",
+              "ToolTip": "C:\\Users\\usern\\source\\repos\\EPS-Tracker\\EPS-Tracker\\MerenjeIzmeniForma.cs [Design]",
+              "RelativeToolTip": "EPS-Tracker\\MerenjeIzmeniForma.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-17T18:07:22.947Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "MerenjeMapiranja.cs",
+              "DocumentMoniker": "C:\\Users\\usern\\source\\repos\\EPS-Tracker\\EPS-Tracker\\Mapiranja\\MerenjeMapiranja.cs",
+              "RelativeDocumentMoniker": "EPS-Tracker\\Mapiranja\\MerenjeMapiranja.cs",
+              "ToolTip": "C:\\Users\\usern\\source\\repos\\EPS-Tracker\\EPS-Tracker\\Mapiranja\\MerenjeMapiranja.cs",
+              "RelativeToolTip": "EPS-Tracker\\Mapiranja\\MerenjeMapiranja.cs",
+              "ViewState": "AgIAAAcAAAAAAAAAAAAswA8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-17T17:34:56.672Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Form1.cs",
+              "DocumentMoniker": "C:\\Users\\usern\\source\\repos\\EPS-Tracker\\EPS-Tracker\\Form1.cs",
+              "RelativeDocumentMoniker": "EPS-Tracker\\Form1.cs",
+              "ToolTip": "C:\\Users\\usern\\source\\repos\\EPS-Tracker\\EPS-Tracker\\Form1.cs",
+              "RelativeToolTip": "EPS-Tracker\\Form1.cs",
+              "ViewState": "AgIAAJcBAAAAAAAAAADwv6YBAAAuAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-17T17:19:26.028Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "BrojiloMapiranja.cs",
+              "DocumentMoniker": "C:\\Users\\usern\\source\\repos\\EPS-Tracker\\EPS-Tracker\\Mapiranja\\BrojiloMapiranja.cs",
+              "RelativeDocumentMoniker": "EPS-Tracker\\Mapiranja\\BrojiloMapiranja.cs",
+              "ToolTip": "C:\\Users\\usern\\source\\repos\\EPS-Tracker\\EPS-Tracker\\Mapiranja\\BrojiloMapiranja.cs",
+              "RelativeToolTip": "EPS-Tracker\\Mapiranja\\BrojiloMapiranja.cs",
+              "ViewState": "AgIAABMAAAAAAAAAAAAgwC0AAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-17T16:08:07.498Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "DTOManager.cs",
+              "DocumentMoniker": "C:\\Users\\usern\\source\\repos\\EPS-Tracker\\EPS-Tracker\\DTOManager.cs",
+              "RelativeDocumentMoniker": "EPS-Tracker\\DTOManager.cs",
+              "ToolTip": "C:\\Users\\usern\\source\\repos\\EPS-Tracker\\EPS-Tracker\\DTOManager.cs",
+              "RelativeToolTip": "EPS-Tracker\\DTOManager.cs",
+              "ViewState": "AgIAAK4CAAAAAAAAAAAUwLcCAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-17T15:15:26.023Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "EPS-Tracker",
+              "DocumentMoniker": "C:\\Users\\usern\\source\\repos\\EPS-Tracker\\EPS-Tracker\\EPS-Tracker.csproj",
+              "RelativeDocumentMoniker": "EPS-Tracker\\EPS-Tracker.csproj",
+              "ToolTip": "C:\\Users\\usern\\source\\repos\\EPS-Tracker\\EPS-Tracker\\EPS-Tracker.csproj",
+              "RelativeToolTip": "EPS-Tracker\\EPS-Tracker.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2026-06-17T14:59:25.822Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "MerenjeDodajForma.cs",
+              "DocumentMoniker": "C:\\Users\\usern\\source\\repos\\EPS-Tracker\\EPS-Tracker\\MerenjeDodajForma.cs",
+              "RelativeDocumentMoniker": "EPS-Tracker\\MerenjeDodajForma.cs",
+              "ToolTip": "C:\\Users\\usern\\source\\repos\\EPS-Tracker\\EPS-Tracker\\MerenjeDodajForma.cs",
+              "RelativeToolTip": "EPS-Tracker\\MerenjeDodajForma.cs",
+              "ViewState": "AgIAAB0AAAAAAAAAAAAIwCQAAAA4AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-17T17:48:36.524Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "MerenjeDodajForma.Designer.cs",
+              "DocumentMoniker": "C:\\Users\\usern\\source\\repos\\EPS-Tracker\\EPS-Tracker\\MerenjeDodajForma.Designer.cs",
+              "RelativeDocumentMoniker": "EPS-Tracker\\MerenjeDodajForma.Designer.cs",
+              "ToolTip": "C:\\Users\\usern\\source\\repos\\EPS-Tracker\\EPS-Tracker\\MerenjeDodajForma.Designer.cs",
+              "RelativeToolTip": "EPS-Tracker\\MerenjeDodajForma.Designer.cs",
+              "ViewState": "AgIAAG8AAAAAAAAAAAAEwH0AAAArAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-17T17:53:08.123Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "MerenjeDodajForma.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\usern\\source\\repos\\EPS-Tracker\\EPS-Tracker\\MerenjeDodajForma.cs",
+              "RelativeDocumentMoniker": "EPS-Tracker\\MerenjeDodajForma.cs",
+              "ToolTip": "C:\\Users\\usern\\source\\repos\\EPS-Tracker\\EPS-Tracker\\MerenjeDodajForma.cs [Design]",
+              "RelativeToolTip": "EPS-Tracker\\MerenjeDodajForma.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-17T17:42:24.853Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "DTOs.cs",
+              "DocumentMoniker": "C:\\Users\\usern\\source\\repos\\EPS-Tracker\\EPS-Tracker\\DTOs.cs",
+              "RelativeDocumentMoniker": "EPS-Tracker\\DTOs.cs",
+              "ToolTip": "C:\\Users\\usern\\source\\repos\\EPS-Tracker\\EPS-Tracker\\DTOs.cs",
+              "RelativeToolTip": "EPS-Tracker\\DTOs.cs",
+              "ViewState": "AgIAAEYAAAAAAAAAAAAUwFQAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-17T15:14:33.213Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "Brojilo.cs",
+              "DocumentMoniker": "C:\\Users\\usern\\source\\repos\\EPS-Tracker\\EPS-Tracker\\Entiteti\\Brojilo.cs",
+              "RelativeDocumentMoniker": "EPS-Tracker\\Entiteti\\Brojilo.cs",
+              "ToolTip": "C:\\Users\\usern\\source\\repos\\EPS-Tracker\\EPS-Tracker\\Entiteti\\Brojilo.cs",
+              "RelativeToolTip": "EPS-Tracker\\Entiteti\\Brojilo.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAxAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-17T15:19:09.745Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "Merenje.cs",
+              "DocumentMoniker": "C:\\Users\\usern\\source\\repos\\EPS-Tracker\\EPS-Tracker\\Entiteti\\Merenje.cs",
+              "RelativeDocumentMoniker": "EPS-Tracker\\Entiteti\\Merenje.cs",
+              "ToolTip": "C:\\Users\\usern\\source\\repos\\EPS-Tracker\\EPS-Tracker\\Entiteti\\Merenje.cs",
+              "RelativeToolTip": "EPS-Tracker\\Entiteti\\Merenje.cs",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAowAYAAAAUAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-17T17:34:06.452Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "PoveziPotrosacaBrojiloForma.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\usern\\source\\repos\\EPS-Tracker\\EPS-Tracker\\PoveziPotrosacaBrojiloForma.cs",
+              "RelativeDocumentMoniker": "EPS-Tracker\\PoveziPotrosacaBrojiloForma.cs",
+              "ToolTip": "C:\\Users\\usern\\source\\repos\\EPS-Tracker\\EPS-Tracker\\PoveziPotrosacaBrojiloForma.cs [Design]",
+              "RelativeToolTip": "EPS-Tracker\\PoveziPotrosacaBrojiloForma.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-17T17:15:33.398Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "PoveziPotrosacaBrojiloForma.Designer.cs",
+              "DocumentMoniker": "C:\\Users\\usern\\source\\repos\\EPS-Tracker\\EPS-Tracker\\PoveziPotrosacaBrojiloForma.Designer.cs",
+              "RelativeDocumentMoniker": "EPS-Tracker\\PoveziPotrosacaBrojiloForma.Designer.cs",
+              "ToolTip": "C:\\Users\\usern\\source\\repos\\EPS-Tracker\\EPS-Tracker\\PoveziPotrosacaBrojiloForma.Designer.cs",
+              "RelativeToolTip": "EPS-Tracker\\PoveziPotrosacaBrojiloForma.Designer.cs",
+              "ViewState": "AgIAACcAAAAAAAAAAAAEwDUAAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-17T17:26:10.688Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "PoveziPotrosacaBrojiloForma.cs",
+              "DocumentMoniker": "C:\\Users\\usern\\source\\repos\\EPS-Tracker\\EPS-Tracker\\PoveziPotrosacaBrojiloForma.cs",
+              "RelativeDocumentMoniker": "EPS-Tracker\\PoveziPotrosacaBrojiloForma.cs",
+              "ToolTip": "C:\\Users\\usern\\source\\repos\\EPS-Tracker\\EPS-Tracker\\PoveziPotrosacaBrojiloForma.cs",
+              "RelativeToolTip": "EPS-Tracker\\PoveziPotrosacaBrojiloForma.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAABAAAAAiAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-17T17:17:36.639Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "PotrosacMapiranja.cs",
+              "DocumentMoniker": "C:\\Users\\usern\\source\\repos\\EPS-Tracker\\EPS-Tracker\\Mapiranja\\PotrosacMapiranja.cs",
+              "RelativeDocumentMoniker": "EPS-Tracker\\Mapiranja\\PotrosacMapiranja.cs",
+              "ToolTip": "C:\\Users\\usern\\source\\repos\\EPS-Tracker\\EPS-Tracker\\Mapiranja\\PotrosacMapiranja.cs",
+              "RelativeToolTip": "EPS-Tracker\\Mapiranja\\PotrosacMapiranja.cs",
+              "ViewState": "AgIAAB8AAAAAAAAAAAAgwDUAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-17T16:07:20.659Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "Potrosac.cs",
+              "DocumentMoniker": "C:\\Users\\usern\\source\\repos\\EPS-Tracker\\EPS-Tracker\\Entiteti\\Potrosac.cs",
+              "RelativeDocumentMoniker": "EPS-Tracker\\Entiteti\\Potrosac.cs",
+              "ToolTip": "C:\\Users\\usern\\source\\repos\\EPS-Tracker\\EPS-Tracker\\Entiteti\\Potrosac.cs",
+              "RelativeToolTip": "EPS-Tracker\\Entiteti\\Potrosac.cs",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAowBwAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-17T15:13:33.656Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "BrojiloIzmeniForma.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\usern\\source\\repos\\EPS-Tracker\\EPS-Tracker\\BrojiloIzmeniForma.cs",
+              "RelativeDocumentMoniker": "EPS-Tracker\\BrojiloIzmeniForma.cs",
+              "ToolTip": "C:\\Users\\usern\\source\\repos\\EPS-Tracker\\EPS-Tracker\\BrojiloIzmeniForma.cs [Design]",
+              "RelativeToolTip": "EPS-Tracker\\BrojiloIzmeniForma.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-17T17:01:36.873Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "BrojiloIzmeniForma.cs",
+              "DocumentMoniker": "C:\\Users\\usern\\source\\repos\\EPS-Tracker\\EPS-Tracker\\BrojiloIzmeniForma.cs",
+              "RelativeDocumentMoniker": "EPS-Tracker\\BrojiloIzmeniForma.cs",
+              "ToolTip": "C:\\Users\\usern\\source\\repos\\EPS-Tracker\\EPS-Tracker\\BrojiloIzmeniForma.cs",
+              "RelativeToolTip": "EPS-Tracker\\BrojiloIzmeniForma.cs",
+              "ViewState": "AgIAADAAAAAAAAAAAAAWwEMAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-17T17:04:32.938Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "BrojiloIzmeniForma.Designer.cs",
+              "DocumentMoniker": "C:\\Users\\usern\\source\\repos\\EPS-Tracker\\EPS-Tracker\\BrojiloIzmeniForma.Designer.cs",
+              "RelativeDocumentMoniker": "EPS-Tracker\\BrojiloIzmeniForma.Designer.cs",
+              "ToolTip": "C:\\Users\\usern\\source\\repos\\EPS-Tracker\\EPS-Tracker\\BrojiloIzmeniForma.Designer.cs",
+              "RelativeToolTip": "EPS-Tracker\\BrojiloIzmeniForma.Designer.cs",
+              "ViewState": "AgIAAEcAAAAAAAAAAAAEwFoAAAAxAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-17T17:06:05.151Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "BrojiloDodajForma.cs",
+              "DocumentMoniker": "C:\\Users\\usern\\source\\repos\\EPS-Tracker\\EPS-Tracker\\BrojiloDodajForma.cs",
+              "RelativeDocumentMoniker": "EPS-Tracker\\BrojiloDodajForma.cs",
+              "ToolTip": "C:\\Users\\usern\\source\\repos\\EPS-Tracker\\EPS-Tracker\\BrojiloDodajForma.cs",
+              "RelativeToolTip": "EPS-Tracker\\BrojiloDodajForma.cs",
+              "ViewState": "AgIAAAcAAAAAAAAAAAAcwCkAAAAlAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-17T16:49:26.14Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "BrojiloDodajForma.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\usern\\source\\repos\\EPS-Tracker\\EPS-Tracker\\BrojiloDodajForma.cs",
+              "RelativeDocumentMoniker": "EPS-Tracker\\BrojiloDodajForma.cs",
+              "ToolTip": "C:\\Users\\usern\\source\\repos\\EPS-Tracker\\EPS-Tracker\\BrojiloDodajForma.cs [Design]",
+              "RelativeToolTip": "EPS-Tracker\\BrojiloDodajForma.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-17T16:49:17.818Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
+              "Title": "PotrosacIzmeniForma.Designer.cs",
+              "DocumentMoniker": "C:\\Users\\usern\\source\\repos\\EPS-Tracker\\EPS-Tracker\\PotrosacIzmeniForma.Designer.cs",
+              "RelativeDocumentMoniker": "EPS-Tracker\\PotrosacIzmeniForma.Designer.cs",
+              "ToolTip": "C:\\Users\\usern\\source\\repos\\EPS-Tracker\\EPS-Tracker\\PotrosacIzmeniForma.Designer.cs",
+              "RelativeToolTip": "EPS-Tracker\\PotrosacIzmeniForma.Designer.cs",
+              "ViewState": "AgIAAEsAAAAAAAAAAADwv14AAAAwAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-17T16:22:11.5Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 26,
+              "Title": "PotrosacIzmeniForma.cs",
+              "DocumentMoniker": "C:\\Users\\usern\\source\\repos\\EPS-Tracker\\EPS-Tracker\\PotrosacIzmeniForma.cs",
+              "RelativeDocumentMoniker": "EPS-Tracker\\PotrosacIzmeniForma.cs",
+              "ToolTip": "C:\\Users\\usern\\source\\repos\\EPS-Tracker\\EPS-Tracker\\PotrosacIzmeniForma.cs",
+              "RelativeToolTip": "EPS-Tracker\\PotrosacIzmeniForma.cs",
+              "ViewState": "AgIAABkAAAAAAAAAAAD4vzgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-17T16:16:10.388Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 27,
+              "Title": "App.config",
+              "DocumentMoniker": "C:\\Users\\usern\\source\\repos\\EPS-Tracker\\EPS-Tracker\\App.config",
+              "RelativeDocumentMoniker": "EPS-Tracker\\App.config",
+              "ToolTip": "C:\\Users\\usern\\source\\repos\\EPS-Tracker\\EPS-Tracker\\App.config",
+              "RelativeToolTip": "EPS-Tracker\\App.config",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000601|",
+              "WhenOpened": "2026-06-17T15:50:55.039Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 28,
+              "Title": "DataLayer.cs",
+              "DocumentMoniker": "C:\\Users\\usern\\source\\repos\\EPS-Tracker\\EPS-Tracker\\DataLayer.cs",
+              "RelativeDocumentMoniker": "EPS-Tracker\\DataLayer.cs",
+              "ToolTip": "C:\\Users\\usern\\source\\repos\\EPS-Tracker\\EPS-Tracker\\DataLayer.cs",
+              "RelativeToolTip": "EPS-Tracker\\DataLayer.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-17T15:07:28.222Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 29,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\usern\\source\\repos\\EPS-Tracker\\EPS-Tracker\\Program.cs",
+              "RelativeDocumentMoniker": "EPS-Tracker\\Program.cs",
+              "ToolTip": "C:\\Users\\usern\\source\\repos\\EPS-Tracker\\EPS-Tracker\\Program.cs",
+              "RelativeToolTip": "EPS-Tracker\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-17T14:58:18.187Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
