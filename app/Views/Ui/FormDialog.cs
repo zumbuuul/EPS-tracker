@@ -7,6 +7,7 @@ namespace app.Views.Ui
     {
         private readonly Grid form;
         private readonly Label errorLabel;
+        private readonly IDictionary<Widget, FormRow> rows;
         private int row;
 
         protected FormDialog(string title, Window parent)
@@ -14,6 +15,7 @@ namespace app.Views.Ui
         {
             SetDefaultSize(680, 640);
             DestroyWithParent = true;
+            rows = new Dictionary<Widget, FormRow>();
 
             form = new Grid
             {
@@ -60,7 +62,7 @@ namespace app.Views.Ui
             ShowError(null);
         }
 
-        protected void AddSection(string text)
+        protected Label AddSection(string text)
         {
             var label = new Label
             {
@@ -71,6 +73,7 @@ namespace app.Views.Ui
 
             form.Attach(label, 0, row, 2, 1);
             row++;
+            return label;
         }
 
         protected Entry AddEntry(string labelText, string placeholder = "")
@@ -145,7 +148,24 @@ namespace app.Views.Ui
             scroll.SetSizeRequest(-1, 84);
             scroll.Add(text);
             AddRow(labelText, scroll);
+            rows[text] = rows[scroll];
             return text;
+        }
+
+        protected void SetRowVisible(Widget editor, bool visible)
+        {
+            FormRow formRow;
+
+            if (editor == null)
+            {
+                return;
+            }
+
+            if (rows.TryGetValue(editor, out formRow))
+            {
+                SetWidgetVisible(formRow.Label, visible);
+                SetWidgetVisible(formRow.Editor, visible);
+            }
         }
 
         private void AddRow(string labelText, Widget editor)
@@ -159,7 +179,27 @@ namespace app.Views.Ui
 
             form.Attach(label, 0, row, 1, 1);
             form.Attach(editor, 1, row, 1, 1);
+            rows[editor] = new FormRow(label, editor);
             row++;
+        }
+
+        protected static void SetWidgetVisible(Widget widget, bool visible)
+        {
+            widget.NoShowAll = !visible;
+            widget.Visible = visible;
+        }
+
+        private sealed class FormRow
+        {
+            public FormRow(Widget label, Widget editor)
+            {
+                Label = label;
+                Editor = editor;
+            }
+
+            public Widget Label { get; private set; }
+
+            public Widget Editor { get; private set; }
         }
     }
 }

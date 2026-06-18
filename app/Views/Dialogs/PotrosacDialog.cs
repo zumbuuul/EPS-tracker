@@ -16,9 +16,11 @@ namespace app.Views.Dialogs
         private readonly ComboBoxText tipCombo;
         private readonly Entry statusEntry;
         private readonly Entry kategorijaTarifeEntry;
+        private readonly Label fizickoLiceSection;
         private readonly Entry imeEntry;
         private readonly Entry prezimeEntry;
         private readonly Entry jmbgEntry;
+        private readonly Label pravnoLiceSection;
         private readonly Entry nazivEntry;
         private readonly Entry pibEntry;
         private readonly Entry adresaEntry;
@@ -42,13 +44,13 @@ namespace app.Views.Dialogs
             statusEntry = AddEntry("Status");
             kategorijaTarifeEntry = AddEntry("Kategorija tarife");
 
-            AddSection("Fizicko lice");
+            fizickoLiceSection = AddSection("Fizicko lice");
             imeEntry = AddEntry("Ime");
             prezimeEntry = AddEntry("Prezime");
             jmbgEntry = AddEntry("JMBG");
             AttachDigitsOnly(jmbgEntry, 13);
 
-            AddSection("Pravno lice");
+            pravnoLiceSection = AddSection("Pravno lice");
             nazivEntry = AddEntry("Naziv");
             pibEntry = AddEntry("PIB");
             AttachDigitsOnly(pibEntry, 9);
@@ -61,20 +63,25 @@ namespace app.Views.Dialogs
             emailEntry = AddEntry("Email");
             komentarText = AddText("Komentar");
 
+            tipCombo.Changed += (sender, args) => UpdateConditionalSections();
+
             if (potrosac != null)
             {
                 Fill(potrosac);
             }
+
+            UpdateConditionalSections();
         }
 
         public PotrosacSaveDto ToSaveDto()
         {
             Validate();
+            var tip = ActiveTip();
 
             return new PotrosacSaveDto
             {
                 Id = id,
-                Tip = (PotrosacTip)Enum.Parse(typeof(PotrosacTip), tipCombo.ActiveText),
+                Tip = tip,
                 Email = emailEntry.Text,
                 Telefon = telefonEntry.Text,
                 Adresa = adresaEntry.Text,
@@ -82,19 +89,54 @@ namespace app.Views.Dialogs
                 Komentar = komentarText.Buffer.Text,
                 Status = statusEntry.Text,
                 KategorijaTarife = kategorijaTarifeEntry.Text,
-                Domacinstvo = new DomacinstvoDto
-                {
-                    Id = id,
-                    Ime = imeEntry.Text,
-                    Prezime = prezimeEntry.Text,
-                    Jmbg = jmbgEntry.Text
-                },
-                Firma = new FirmaDto
-                {
-                    Id = id,
-                    Naziv = nazivEntry.Text,
-                    Pib = pibEntry.Text
-                }
+                Domacinstvo = tip == PotrosacTip.DOMACINSTVO
+                    ? BuildDomacinstvoDto()
+                    : null,
+                Firma = tip == PotrosacTip.FIRMA
+                    ? BuildFirmaDto()
+                    : null
+            };
+        }
+
+        private void UpdateConditionalSections()
+        {
+            var tip = ActiveTip();
+            var showFizickoLice = tip == PotrosacTip.DOMACINSTVO;
+            var showPravnoLice = tip == PotrosacTip.FIRMA;
+
+            SetWidgetVisible(fizickoLiceSection, showFizickoLice);
+            SetRowVisible(imeEntry, showFizickoLice);
+            SetRowVisible(prezimeEntry, showFizickoLice);
+            SetRowVisible(jmbgEntry, showFizickoLice);
+
+            SetWidgetVisible(pravnoLiceSection, showPravnoLice);
+            SetRowVisible(nazivEntry, showPravnoLice);
+            SetRowVisible(pibEntry, showPravnoLice);
+        }
+
+        private PotrosacTip ActiveTip()
+        {
+            return (PotrosacTip)Enum.Parse(typeof(PotrosacTip), tipCombo.ActiveText);
+        }
+
+        private DomacinstvoDto BuildDomacinstvoDto()
+        {
+            return new DomacinstvoDto
+            {
+                Id = id,
+                Ime = imeEntry.Text,
+                Prezime = prezimeEntry.Text,
+                Jmbg = jmbgEntry.Text
+            };
+        }
+
+        private FirmaDto BuildFirmaDto()
+        {
+            return new FirmaDto
+            {
+                Id = id,
+                Naziv = nazivEntry.Text,
+                Pib = pibEntry.Text
             };
         }
 
@@ -125,7 +167,7 @@ namespace app.Views.Dialogs
 
         private void Validate()
         {
-            var tip = (PotrosacTip)Enum.Parse(typeof(PotrosacTip), tipCombo.ActiveText);
+            var tip = ActiveTip();
             var email = emailEntry.Text.Trim();
             var telefon = telefonEntry.Text.Trim();
 
