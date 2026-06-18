@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mail;
 using app.DTO;
 using app.Entities;
 using app.Entities.Enums;
@@ -246,7 +247,7 @@ namespace app.Services
                 };
             }
 
-            potrosac.Domacinstvo.Jmbg = Require(dto.Jmbg, "JMBG je obavezan.");
+            potrosac.Domacinstvo.Jmbg = RequireDigits(dto.Jmbg, 13, "JMBG mora imati tacno 13 cifara.");
             potrosac.Domacinstvo.Ime = Require(dto.Ime, "Ime je obavezno.");
             potrosac.Domacinstvo.Prezime = Require(dto.Prezime, "Prezime je obavezno.");
         }
@@ -267,7 +268,7 @@ namespace app.Services
             }
 
             potrosac.Firma.Naziv = Require(dto.Naziv, "Naziv firme je obavezan.");
-            potrosac.Firma.Pib = Require(dto.Pib, "PIB je obavezan.");
+            potrosac.Firma.Pib = RequireDigits(dto.Pib, 9, "PIB mora imati tacno 9 cifara.");
         }
 
         private static void RemoveDomacinstvo(ISession session, Potrosac potrosac)
@@ -479,6 +480,16 @@ namespace app.Services
             Require(dto.Grad, "Grad je obavezan.");
             Require(dto.Status, "Status potrosaca je obavezan.");
             Require(dto.KategorijaTarife, "Kategorija tarife je obavezna.");
+
+            if (!string.IsNullOrWhiteSpace(dto.Telefon) && !IsDigitsOnly(dto.Telefon.Trim()))
+            {
+                throw new ArgumentException("Telefon sme da sadrzi samo cifre.");
+            }
+
+            if (!string.IsNullOrWhiteSpace(dto.Email) && !IsValidEmail(dto.Email.Trim()))
+            {
+                throw new ArgumentException("Email mora biti u ispravnom formatu.");
+            }
         }
 
         private static void ValidateSerijskiBroj(string serijskiBroj)
@@ -496,6 +507,18 @@ namespace app.Services
             return value.Trim();
         }
 
+        private static string RequireDigits(string value, int length, string message)
+        {
+            var text = Require(value, message);
+
+            if (text.Length != length || !IsDigitsOnly(text))
+            {
+                throw new ArgumentException(message);
+            }
+
+            return text;
+        }
+
         private static string Normalize(string value)
         {
             return string.IsNullOrWhiteSpace(value) ? null : value.Trim();
@@ -504,6 +527,29 @@ namespace app.Services
         private static bool IsSameSerijskiBroj(string left, string right)
         {
             return string.Equals(left, right, StringComparison.Ordinal);
+        }
+
+        private static bool IsDigitsOnly(string value)
+        {
+            return value != null && value.Length > 0 && value.All(IsAsciiDigit);
+        }
+
+        private static bool IsAsciiDigit(char value)
+        {
+            return value >= '0' && value <= '9';
+        }
+
+        private static bool IsValidEmail(string value)
+        {
+            try
+            {
+                var address = new MailAddress(value);
+                return address.Address == value;
+            }
+            catch (FormatException)
+            {
+                return false;
+            }
         }
     }
 }
