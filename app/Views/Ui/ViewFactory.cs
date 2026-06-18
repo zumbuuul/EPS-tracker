@@ -77,7 +77,12 @@ namespace app.Views.Ui
 
         public static TreeView Table(params string[] columns)
         {
-            var store = new ListStore(columns.Select(_ => typeof(string)).ToArray());
+            return Table(out _, columns);
+        }
+
+        public static TreeView Table(out ListStore store, params string[] columns)
+        {
+            store = new ListStore(columns.Select(_ => typeof(string)).ToArray());
             var table = new TreeView(store)
             {
                 HeadersVisible = true,
@@ -88,7 +93,8 @@ namespace app.Views.Ui
             {
                 var renderer = new CellRendererText
                 {
-                    Ellipsize = Pango.EllipsizeMode.End
+                    Ellipsize = Pango.EllipsizeMode.End,
+                    Foreground = "#1f2933"
                 };
 
                 var column = new TreeViewColumn

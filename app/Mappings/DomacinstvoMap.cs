@@ -8,6 +8,7 @@ namespace app.Mappings
         public DomacinstvoMap()
         {
             Table("DOMACINSTVO");
+            Not.LazyLoad();
 
             Id(x => x.Id)
                 .Column("ID")

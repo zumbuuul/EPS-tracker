@@ -42,6 +42,12 @@ window {
     padding: 6px 12px;
 }
 
+.dialog-error {
+    background: #fde8e8;
+    color: #7f1d1d;
+    padding: 8px 12px;
+}
+
 button {
     min-height: 30px;
     padding: 4px 10px;
@@ -53,7 +59,23 @@ entry, combobox, spinbutton {
 }
 
 treeview {
-    background: #ffffff;
+    background-color: #ffffff;
+    color: #1f2933;
+}
+
+treeview.view {
+    background-color: #ffffff;
+    color: #1f2933;
+}
+
+treeview.view:selected {
+    background-color: #2f6fca;
+    color: #ffffff;
+}
+
+treeview.view header button {
+    background: #5c6268;
+    color: #ffffff;
 }
 ";
 

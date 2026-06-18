@@ -10,10 +10,11 @@ namespace app.Mappings
         public MerenjeMap()
         {
             Table("MERENJE");
+            Not.LazyLoad();
 
             Id(x => x.Id)
                 .Column("ID")
-                .GeneratedBy.Identity();
+                .GeneratedBy.TriggerIdentity();
 
             References(x => x.Brojilo)
                 .Column("SERIJSKI_BROJ")

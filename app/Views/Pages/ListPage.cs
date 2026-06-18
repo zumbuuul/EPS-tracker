@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Gtk;
 using app.Views.Ui;
 
@@ -7,6 +9,7 @@ namespace app.Views.Pages
     public abstract class ListPage : Box
     {
         private readonly Action<string> showStatus;
+        private ListStore tableStore;
 
         protected ListPage(string title, string subtitle, Action<string> showStatus)
             : base(Orientation.Vertical, 10)
@@ -53,8 +56,39 @@ namespace app.Views.Pages
 
         protected void SetTable(params string[] columns)
         {
-            Table = ViewFactory.Table(columns);
+            Table = ViewFactory.Table(out tableStore, columns);
             PackStart(ViewFactory.Scroll(Table), true, true, 0);
+        }
+
+        protected int ReplaceRows(IEnumerable<string[]> rows)
+        {
+            if (tableStore == null)
+            {
+                return 0;
+            }
+
+            var count = 0;
+            tableStore.Clear();
+
+            foreach (var row in rows)
+            {
+                tableStore.AppendValues(row.Cast<object>().ToArray());
+                count++;
+            }
+
+            return count;
+        }
+
+        protected string SelectedValue(int columnIndex)
+        {
+            TreeIter iter;
+
+            if (!Table.Selection.GetSelected(out iter))
+            {
+                return null;
+            }
+
+            return Table.Model.GetValue(iter, columnIndex) as string;
         }
 
         protected void OpenDialog(FormDialog dialog, string statusAfterOk)

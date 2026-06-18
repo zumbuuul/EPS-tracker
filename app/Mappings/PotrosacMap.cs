@@ -10,10 +10,11 @@ namespace app.Mappings
         public PotrosacMap()
         {
             Table("POTROSAC");
+            Not.LazyLoad();
 
             Id(x => x.Id)
                 .Column("ID")
-                .GeneratedBy.Identity();
+                .GeneratedBy.TriggerIdentity();
 
             Map(x => x.Tip)
                 .Column("TIP")

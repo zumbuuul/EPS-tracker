@@ -6,6 +6,7 @@ namespace app.Views.Ui
     public abstract class FormDialog : Dialog
     {
         private readonly Grid form;
+        private readonly Label errorLabel;
         private int row;
 
         protected FormDialog(string title, Window parent)
@@ -22,6 +23,16 @@ namespace app.Views.Ui
                 ColumnHomogeneous = false
             };
 
+            errorLabel = new Label
+            {
+                Xalign = 0,
+                LineWrap = true,
+                NoShowAll = true
+            };
+
+            errorLabel.StyleContext.AddClass("dialog-error");
+            ContentArea.PackStart(errorLabel, false, false, 0);
+
             var scroll = new ScrolledWindow
             {
                 ShadowType = ShadowType.None
@@ -36,6 +47,17 @@ namespace app.Views.Ui
 
             AddButton("Otkazi", ResponseType.Cancel);
             AddButton("Sacuvaj", ResponseType.Ok);
+        }
+
+        public void ShowError(string message)
+        {
+            errorLabel.Text = message ?? string.Empty;
+            errorLabel.Visible = !string.IsNullOrWhiteSpace(message);
+        }
+
+        public void ClearError()
+        {
+            ShowError(null);
         }
 
         protected void AddSection(string text)

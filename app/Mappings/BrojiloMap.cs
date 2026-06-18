@@ -10,6 +10,7 @@ namespace app.Mappings
         public BrojiloMap()
         {
             Table("BROJILO");
+            Not.LazyLoad();
 
             Id(x => x.SerijskiBroj)
                 .Column("SERIJSKI_BROJ")

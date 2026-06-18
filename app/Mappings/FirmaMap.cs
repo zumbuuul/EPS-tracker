@@ -8,6 +8,7 @@ namespace app.Mappings
         public FirmaMap()
         {
             Table("FIRMA");
+            Not.LazyLoad();
 
             Id(x => x.Id)
                 .Column("ID")

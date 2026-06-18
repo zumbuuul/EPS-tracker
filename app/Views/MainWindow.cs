@@ -1,4 +1,5 @@
 using Gtk;
+using app.Services;
 using app.Views.Pages;
 
 namespace app.Views
@@ -7,7 +8,7 @@ namespace app.Views
     {
         private readonly Label statusLabel;
 
-        public MainWindow()
+        public MainWindow(PotrosacService potrosacService)
             : base("EPS Tracker")
         {
             SetDefaultSize(1280, 760);
@@ -20,13 +21,18 @@ namespace app.Views
 
             root.PackStart(BuildTopbar(), false, false, 0);
 
+            statusLabel = new Label("Spremno")
+            {
+                Xalign = 0
+            };
+
             var notebook = new Notebook
             {
                 Scrollable = true,
                 BorderWidth = 0
             };
 
-            notebook.AppendPage(new PotrosaciPage(SetStatus), new Label("Potrosaci"));
+            notebook.AppendPage(new PotrosaciPage(potrosacService, SetStatus), new Label("Potrosaci"));
             notebook.AppendPage(new BrojilaPage(SetStatus), new Label("Brojila"));
             notebook.AppendPage(new MerenjaPage(SetStatus), new Label("Merenja"));
             notebook.AppendPage(new RacuniPage(SetStatus), new Label("Racuni"));
@@ -34,11 +40,6 @@ namespace app.Views
             notebook.AppendPage(new StanjeMrezePage(SetStatus), new Label("Stanje mreze"));
 
             root.PackStart(notebook, true, true, 0);
-
-            statusLabel = new Label("Spremno")
-            {
-                Xalign = 0
-            };
 
             var statusbar = new Box(Orientation.Horizontal, 0);
             statusbar.StyleContext.AddClass("statusbar");

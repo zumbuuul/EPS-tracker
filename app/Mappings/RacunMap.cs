@@ -8,6 +8,7 @@ namespace app.Mappings
         public RacunMap()
         {
             Table("RACUN");
+            Not.LazyLoad();
 
             Id(x => x.BrojRacuna)
                 .Column("BROJ_RACUNA")

@@ -10,10 +10,11 @@ namespace app.Mappings
         public KvarMap()
         {
             Table("KVAR");
+            Not.LazyLoad();
 
             Id(x => x.Id)
                 .Column("ID")
-                .GeneratedBy.Identity();
+                .GeneratedBy.TriggerIdentity();
 
             References(x => x.Brojilo)
                 .Column("SERIJSKI_BROJ")

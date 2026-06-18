@@ -8,6 +8,7 @@ namespace app.Mappings
         public RasvetnoBrojiloMap()
         {
             Table("RASVETNO");
+            Not.LazyLoad();
 
             Id(x => x.SerijskiBroj)
                 .Column("SERIJSKI_BROJ")

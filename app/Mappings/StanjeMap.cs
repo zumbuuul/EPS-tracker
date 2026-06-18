@@ -8,10 +8,11 @@ namespace app.Mappings
         public StanjeMap()
         {
             Table("STANJE");
+            Not.LazyLoad();
 
             Id(x => x.Id)
                 .Column("ID")
-                .GeneratedBy.Identity();
+                .GeneratedBy.TriggerIdentity();
 
             Map(x => x.DatumIVreme)
                 .Column("DATUM_I_VREME")

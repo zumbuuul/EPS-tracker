@@ -3,6 +3,7 @@ using app.Mappings;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
 using NHibernate;
+using NHibernate.Cfg;
 
 namespace app.Persistence
 {
@@ -66,6 +67,10 @@ namespace app.Persistence
                 .Mappings(mappings => mappings.FluentMappings.AddFromAssemblyOf<MappingAnchor>())
                 .ExposeConfiguration(configuration =>
                 {
+                    configuration.SetProperty(
+                        NHibernate.Cfg.Environment.Dialect,
+                        Options.DialectType.AssemblyQualifiedName);
+
                     if (!string.IsNullOrWhiteSpace(Options.QuerySubstitutions))
                     {
                         configuration.SetProperty("query.substitutions", Options.QuerySubstitutions);
