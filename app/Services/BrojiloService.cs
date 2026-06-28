@@ -447,8 +447,10 @@ namespace app.Services
                 PotrosnjaReaktivna = merenje.PotrosnjaReaktivna,
                 Snaga = merenje.Snaga,
                 Napon = merenje.Napon,
+                Struja = merenje.Struja,
+                TipMerenja = merenje.TipMerenja,
                 TipIzvora = merenje.TipIzvora.HasValue ? merenje.TipIzvora.Value.ToString() : null,
-                IsValidirano = merenje.IsValidirano.ToString()
+                IsValidirano = merenje.IsValidirano == DaNe.D ? "DA" : "NE"
             };
         }
 

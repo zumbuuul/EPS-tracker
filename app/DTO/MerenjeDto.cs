@@ -18,6 +18,10 @@ namespace app.DTO
 
         public decimal? Napon { get; set; }
 
+        public decimal? Struja { get; set; }
+
+        public string TipMerenja { get; set; }
+
         public string TipIzvora { get; set; }
 
         public string IsValidirano { get; set; }
