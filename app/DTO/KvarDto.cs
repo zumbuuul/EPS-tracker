@@ -1,5 +1,4 @@
 using System;
-using app.Entities.Enums;
 
 namespace app.DTO
 {
@@ -17,9 +16,9 @@ namespace app.DTO
 
         public string TipKvara { get; set; }
 
-        public KvarStatus Status { get; set; }
+        public string Status { get; set; }
 
-        public KvarPrioritet? Prioritet { get; set; }
+        public string Prioritet { get; set; }
 
         public string NadlezniTim { get; set; }
 
@@ -42,13 +41,13 @@ namespace app.DTO
 
         public string OpisProblema { get; set; }
 
-        public KvarStatus Status { get; set; }
+        public string Status { get; set; }
 
         public DateTime? DatumOtklanjanja { get; set; }
 
         public decimal? TrajanjeUSatima { get; set; }
 
-        public KvarPrioritet? Prioritet { get; set; }
+        public string Prioritet { get; set; }
 
         public string NadlezniTim { get; set; }
 
@@ -69,13 +68,13 @@ namespace app.DTO
 
         public string OpisProblema { get; set; }
 
-        public KvarStatus Status { get; set; }
+        public string Status { get; set; }
 
         public DateTime? DatumOtklanjanja { get; set; }
 
         public decimal? TrajanjeUSatima { get; set; }
 
-        public KvarPrioritet? Prioritet { get; set; }
+        public string Prioritet { get; set; }
 
         public string NadlezniTim { get; set; }
 

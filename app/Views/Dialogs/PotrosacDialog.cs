@@ -81,7 +81,7 @@ namespace app.Views.Dialogs
             return new PotrosacSaveDto
             {
                 Id = id,
-                Tip = tip,
+                Tip = tip.ToString(),
                 Email = emailEntry.Text,
                 Telefon = telefonEntry.Text,
                 Adresa = adresaEntry.Text,
@@ -142,7 +142,7 @@ namespace app.Views.Dialogs
 
         private void Fill(PotrosacDto potrosac)
         {
-            SetActiveText(tipCombo, potrosac.Tip.ToString());
+            SetActiveText(tipCombo, potrosac.Tip);
             statusEntry.Text = potrosac.Status ?? string.Empty;
             kategorijaTarifeEntry.Text = potrosac.KategorijaTarife ?? string.Empty;
             adresaEntry.Text = potrosac.Adresa ?? string.Empty;

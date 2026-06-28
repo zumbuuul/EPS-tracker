@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using app.Entities.Enums;
 
 namespace app.DTO
 {
@@ -8,7 +7,7 @@ namespace app.DTO
     {
         public string SerijskiBroj { get; set; }
 
-        public IList<TipBrojila> TipoviBrojila { get; set; }
+        public IList<string> TipoviBrojila { get; set; }
 
         public DateTime DatumInstalacije { get; set; }
 
@@ -24,7 +23,7 @@ namespace app.DTO
 
         public BrojiloListDto()
         {
-            TipoviBrojila = new List<TipBrojila>();
+            TipoviBrojila = new List<string>();
         }
     }
 
@@ -32,7 +31,7 @@ namespace app.DTO
     {
         public BrojiloDto()
         {
-            TipoviBrojila = new List<TipBrojila>();
+            TipoviBrojila = new List<string>();
             DatumiZamene = new List<DateTime>();
             Potrosaci = new List<PotrosacListDto>();
             Merenja = new List<MerenjeListDto>();
@@ -51,7 +50,7 @@ namespace app.DTO
 
         public string Komentar { get; set; }
 
-        public IList<TipBrojila> TipoviBrojila { get; set; }
+        public IList<string> TipoviBrojila { get; set; }
 
         public IList<DateTime> DatumiZamene { get; set; }
 
@@ -74,7 +73,7 @@ namespace app.DTO
     {
         public BrojiloSaveDto()
         {
-            TipoviBrojila = new List<TipBrojila>();
+            TipoviBrojila = new List<string>();
             DatumiZamene = new List<DateTime>();
         }
 
@@ -90,7 +89,7 @@ namespace app.DTO
 
         public string Komentar { get; set; }
 
-        public IList<TipBrojila> TipoviBrojila { get; set; }
+        public IList<string> TipoviBrojila { get; set; }
 
         public IList<DateTime> DatumiZamene { get; set; }
 
@@ -114,11 +113,11 @@ namespace app.DTO
 
     public class PametnoBrojiloDto
     {
-        public PametnoBrojiloProtokol? Protokol { get; set; }
+        public string Protokol { get; set; }
 
         public decimal? Frekvencija { get; set; }
 
-        public DaNe IsDaljinskoIskljucenje { get; set; }
+        public string IsDaljinskoIskljucenje { get; set; }
 
         public decimal? NivoBaterije { get; set; }
     }
@@ -127,7 +126,7 @@ namespace app.DTO
     {
         public decimal? MaxSnaga { get; set; }
 
-        public DaNe MogucnostMerenjaPoZonama { get; set; }
+        public string MogucnostMerenjaPoZonama { get; set; }
 
         public decimal? UgovorenaSnaga { get; set; }
     }

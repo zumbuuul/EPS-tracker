@@ -4,7 +4,6 @@ using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using app.DTO;
-using app.Entities.Enums;
 using app.Services;
 using app.Views.Dialogs;
 using app.Views.Ui;
@@ -129,7 +128,7 @@ namespace app.Views.Pages
 
             if (!string.IsNullOrWhiteSpace(selectedTip) && selectedTip != "Svi tipovi")
             {
-                filtered = filtered.Where(x => x.Tip.ToString() == selectedTip);
+                filtered = filtered.Where(x => x.Tip == selectedTip);
             }
 
             var displayedRows = ReplaceRows(filtered.Select(ToRow).ToList());
@@ -374,7 +373,7 @@ namespace app.Views.Pages
             return new[]
             {
                 potrosac.Id.ToString(CultureInfo.InvariantCulture),
-                potrosac.Tip.ToString(),
+                potrosac.Tip ?? string.Empty,
                 potrosac.ImeIliNaziv ?? string.Empty,
                 potrosac.Grad ?? string.Empty,
                 potrosac.Telefon ?? string.Empty,

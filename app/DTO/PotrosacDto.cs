@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using app.Entities.Enums;
 
 namespace app.DTO
 {
@@ -7,7 +6,7 @@ namespace app.DTO
     {
         public long Id { get; set; }
 
-        public PotrosacTip Tip { get; set; }
+        public string Tip { get; set; }
 
         public string ImeIliNaziv { get; set; }
 
@@ -35,7 +34,7 @@ namespace app.DTO
 
         public long Id { get; set; }
 
-        public PotrosacTip Tip { get; set; }
+        public string Tip { get; set; }
 
         public string Email { get; set; }
 
@@ -66,7 +65,7 @@ namespace app.DTO
     {
         public long Id { get; set; }
 
-        public PotrosacTip Tip { get; set; }
+        public string Tip { get; set; }
 
         public string Email { get; set; }
 

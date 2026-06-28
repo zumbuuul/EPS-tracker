@@ -1,5 +1,4 @@
 using System;
-using app.Entities.Enums;
 
 namespace app.DTO
 {
@@ -19,9 +18,9 @@ namespace app.DTO
 
         public decimal? Napon { get; set; }
 
-        public TipIzvoraMerenja? TipIzvora { get; set; }
+        public string TipIzvora { get; set; }
 
-        public DaNe IsValidirano { get; set; }
+        public string IsValidirano { get; set; }
     }
 
     public class MerenjeDto
@@ -44,9 +43,9 @@ namespace app.DTO
 
         public string TipMerenja { get; set; }
 
-        public TipIzvoraMerenja? TipIzvora { get; set; }
+        public string TipIzvora { get; set; }
 
-        public DaNe IsValidirano { get; set; }
+        public string IsValidirano { get; set; }
 
         public string Komentar { get; set; }
     }
@@ -71,9 +70,9 @@ namespace app.DTO
 
         public string TipMerenja { get; set; }
 
-        public TipIzvoraMerenja? TipIzvora { get; set; }
+        public string TipIzvora { get; set; }
 
-        public DaNe IsValidirano { get; set; }
+        public string IsValidirano { get; set; }
 
         public string Komentar { get; set; }
     }
@@ -82,7 +81,7 @@ namespace app.DTO
     {
         public long MerenjeId { get; set; }
 
-        public DaNe IsValidirano { get; set; }
+        public string IsValidirano { get; set; }
 
         public string Komentar { get; set; }
     }

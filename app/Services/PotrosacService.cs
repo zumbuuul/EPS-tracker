@@ -76,7 +76,7 @@ namespace app.Services
                 return rows.Select(row => new PotrosacListDto
                 {
                     Id = row.Id,
-                    Tip = row.Tip,
+                    Tip = row.Tip.ToString(),
                     ImeIliNaziv = BuildImeIliNaziv(
                         row.Tip,
                         row.Ime,
@@ -262,7 +262,7 @@ namespace app.Services
 
         private static void ApplyScalarFields(Potrosac potrosac, PotrosacSaveDto dto)
         {
-            potrosac.Tip = dto.Tip;
+            potrosac.Tip = ParsePotrosacTip(dto.Tip);
             potrosac.Email = Normalize(dto.Email);
             potrosac.Telefon = Normalize(dto.Telefon);
             potrosac.Adresa = Require(dto.Adresa, "Adresa je obavezna.");
@@ -274,14 +274,14 @@ namespace app.Services
 
         private static async Task ApplyDetails(ISession session, Potrosac potrosac, PotrosacSaveDto dto)
         {
-            if (dto.Tip == PotrosacTip.DOMACINSTVO)
+            if (potrosac.Tip == PotrosacTip.DOMACINSTVO)
             {
                 await RemoveFirma(session, potrosac).ConfigureAwait(false);
                 ApplyDomacinstvo(potrosac, dto.Domacinstvo);
                 return;
             }
 
-            if (dto.Tip == PotrosacTip.FIRMA)
+            if (potrosac.Tip == PotrosacTip.FIRMA)
             {
                 await RemoveDomacinstvo(session, potrosac).ConfigureAwait(false);
                 ApplyFirma(potrosac, dto.Firma);
@@ -358,7 +358,7 @@ namespace app.Services
             return new PotrosacDto
             {
                 Id = potrosac.Id,
-                Tip = potrosac.Tip,
+                Tip = potrosac.Tip.ToString(),
                 Email = potrosac.Email,
                 Telefon = potrosac.Telefon,
                 Adresa = potrosac.Adresa,
@@ -410,7 +410,7 @@ namespace app.Services
             return new BrojiloListDto
             {
                 SerijskiBroj = brojilo.SerijskiBroj,
-                TipoviBrojila = brojilo.TipoviBrojila.ToList(),
+                TipoviBrojila = brojilo.TipoviBrojila.Select(x => x.ToString()).ToList(),
                 DatumInstalacije = brojilo.DatumInstalacije,
                 PoslednjiDatumZamene = brojilo.DatumiZamene.Count == 0
                     ? (DateTime?)null
@@ -453,8 +453,8 @@ namespace app.Services
                 ImeIliNazivPotrosaca = kvar.Potrosac != null ? BuildImeIliNaziv(kvar.Potrosac) : null,
                 DatumPrijave = kvar.DatumPrijave,
                 TipKvara = kvar.TipKvara,
-                Status = kvar.Status,
-                Prioritet = kvar.Prioritet,
+                Status = kvar.Status.ToString(),
+                Prioritet = kvar.Prioritet.HasValue ? kvar.Prioritet.Value.ToString() : null,
                 NadlezniTim = kvar.NadlezniTim,
                 TrajanjeUSatima = kvar.TrajanjeUSatima
             };
@@ -521,6 +521,7 @@ namespace app.Services
                 throw new ArgumentNullException(nameof(dto));
             }
 
+            ParsePotrosacTip(dto.Tip);
             Require(dto.Adresa, "Adresa je obavezna.");
             Require(dto.Grad, "Grad je obavezan.");
             Require(dto.Status, "Status potrosaca je obavezan.");
@@ -540,6 +541,19 @@ namespace app.Services
         private static void ValidateSerijskiBroj(string serijskiBroj)
         {
             Require(serijskiBroj, "Serijski broj je obavezan.");
+        }
+
+        private static PotrosacTip ParsePotrosacTip(string value)
+        {
+            var text = Require(value, "Tip potrosaca je obavezan.");
+            PotrosacTip tip;
+
+            if (!Enum.TryParse(text, out tip))
+            {
+                throw new ArgumentException("Tip potrosaca nije ispravan.");
+            }
+
+            return tip;
         }
 
         private static string Require(string value, string message)
