@@ -13,7 +13,8 @@ namespace app.Views
             BrojiloService brojiloService,
             MerenjeService merenjeService,
             RacunService racunService,
-            KvarService kvarService)
+            KvarService kvarService,
+            StanjeService stanjeService)
             : base("EPS Tracker")
         {
             SetDefaultSize(1280, 760);
@@ -42,7 +43,7 @@ namespace app.Views
             notebook.AppendPage(new MerenjaPage(merenjeService, racunService, SetStatus), new Label("Merenja"));
             notebook.AppendPage(new RacuniPage(racunService, SetStatus), new Label("Racuni"));
             notebook.AppendPage(new KvaroviPage(kvarService, SetStatus), new Label("Kvarovi"));
-            notebook.AppendPage(new StanjeMrezePage(SetStatus), new Label("Stanje mreze"));
+            notebook.AppendPage(new StanjeMrezePage(stanjeService, SetStatus), new Label("Stanje mreze"));
 
             root.PackStart(notebook, true, true, 0);
 
