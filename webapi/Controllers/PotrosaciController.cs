@@ -85,7 +85,13 @@ namespace webapi.Controllers
         [HttpDelete("{id:long}/brojila/{serijskiBroj}")]
         public Task<IActionResult> RaskiniBrojilo(long id, string serijskiBroj)
         {
-            return Run(() => potrosacService.RaskiniVezuPotrosacBrojilo(id, serijskiBroj));
+            var dto = new PotrosacBrojiloLinkDto
+            {
+                PotrosacId = id,
+                SerijskiBroj = serijskiBroj
+            };
+
+            return Run(() => potrosacService.RaskiniVezuPotrosacBrojilo(dto));
         }
     }
 }

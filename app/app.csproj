@@ -16,8 +16,4 @@
     <PackageReference Include="GtkSharp" Version="3.24.24.*" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\EPS.Core\EPS.Core.csproj" />
-  </ItemGroup>
-
 </Project>
