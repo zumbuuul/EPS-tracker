@@ -39,10 +39,8 @@ namespace app.Views.Pages
                 IzmeniMerenje());
             AddAction("Obrisi", "edit-delete", "Brisanje odabranog merenja", (sender, args) =>
                 ObrisiMerenje());
-            AddAction("Validiraj", "emblem-ok", "Validiraj odabrano merenje", (sender, args) =>
-                ValidirajMerenje());
-            AddAction("Racun", "x-office-spreadsheet", "Generisi racun iz merenja", (sender, args) =>
-                Report("Generisanje racuna ce se povezati kada implementiramo RacunService."));
+            AddAction("Racun", "x-office-spreadsheet", "Prikazi racun za odabrano merenje", (sender, args) =>
+                PrikaziRacunZaMerenje());
             AddAction("Osvezi", "view-refresh", "Osvezi merenja", (sender, args) =>
                 UcitajMerenja());
 
@@ -254,9 +252,9 @@ namespace app.Views.Pages
             }
         }
 
-        private async void ValidirajMerenje()
+        private async void PrikaziRacunZaMerenje()
         {
-            if (!EnsureService("Merenje ne moze biti validirano jer MerenjeService nije konfigurisan."))
+            if (!EnsureService("Racun ne moze biti ucitan jer MerenjeService nije konfigurisan."))
             {
                 return;
             }
@@ -265,20 +263,22 @@ namespace app.Views.Pages
 
             if (!id.HasValue)
             {
-                Report("Izaberi merenje za validaciju.");
+                Report("Izaberi merenje.");
                 return;
             }
 
             try
             {
-                await merenjeService.ValidirajMerenje(new ValidacijaMerenjaDto
-                {
-                    MerenjeId = id.Value,
-                    IsValidirano = "DA"
-                });
+                var racun = await merenjeService.VratiRacunZaMerenje(id.Value);
+                var dialog = new MerenjeRacunDialog(DialogParent, id.Value, racun);
 
-                UcitajMerenja();
-                Report("Merenje je validirano.");
+                dialog.ShowAll();
+                dialog.Run();
+                dialog.Destroy();
+
+                Report(racun == null
+                    ? "Merenje nema generisan racun."
+                    : "Prikazan racun: " + racun.BrojRacuna);
             }
             catch (Exception ex)
             {
