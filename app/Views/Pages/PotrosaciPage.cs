@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Threading.Tasks;
 using app.DTO;
 using app.Entities.Enums;
 using app.Services;
@@ -47,7 +48,7 @@ namespace app.Views.Pages
             AddAction("Brojila", "view-list-symbolic", "Prikazi brojila potrosaca", (sender, args) =>
                 PrikaziBrojilaZaPotrosaca());
             AddAction("Osvezi", "view-refresh", "Osvezi potrosace", (sender, args) =>
-                UcitajPotrosace(true));
+                UcitajPotrosace());
 
             SetTable(
                 "ID",
@@ -75,29 +76,38 @@ namespace app.Views.Pages
             }
 
             hasTriedInitialLoad = true;
-            UcitajPotrosace(true);
+            UcitajPotrosace();
         }
 
-        private void UcitajPotrosace(bool force = false)
+        private async void UcitajPotrosace()
         {
-            if (!force && potrosaci.Count > 0)
-            {
-                ApplyFilters();
-                return;
-            }
-
             if (!EnsureService("Potrosaci nisu ucitani jer PotrosacService nije konfigurisan."))
             {
                 ReplaceRows(new List<string[]>());
                 return;
             }
 
-            TryRun(() =>
+            try
             {
-                potrosaci = potrosacService.VratiPotrosace();
-                ApplyFilters();
-                Report("Ucitanih potrosaca: " + potrosaci.Count);
-            });
+                Report("Ucitavanje potrosaca...");
+                var ucitaniPotrosaci = await potrosacService.VratiPotrosace();
+
+                GLib.Idle.Add(() =>
+                {
+                    potrosaci = ucitaniPotrosaci;
+                    ApplyFilters();
+                    Report("Ucitanih potrosaca: " + potrosaci.Count);
+                    return false;
+                });
+            }
+            catch (Exception ex)
+            {
+                GLib.Idle.Add(() =>
+                {
+                    Report(ex.Message);
+                    return false;
+                });
+            }
         }
 
         private void ApplyFilters()
@@ -130,7 +140,7 @@ namespace app.Views.Pages
             }
         }
 
-        private void DodajPotrosaca()
+        private async void DodajPotrosaca()
         {
             var dialog = new PotrosacDialog(DialogParent);
 
@@ -154,8 +164,8 @@ namespace app.Views.Pages
                 try
                 {
                     dialog.ClearError();
-                    var id = potrosacService.DodajPotrosaca(dialog.ToSaveDto());
-                    UcitajPotrosace(true);
+                    var id = await potrosacService.DodajPotrosaca(dialog.ToSaveDto());
+                    UcitajPotrosace();
                     Report("Potrosac je dodat. ID: " + id);
                     dialog.Destroy();
                     return;
@@ -168,7 +178,7 @@ namespace app.Views.Pages
             }
         }
 
-        private void IzmeniPotrosaca()
+        private async void IzmeniPotrosaca()
         {
             if (!EnsureService("Potrosac ne moze biti ucitan za izmenu jer PotrosacService nije konfigurisan."))
             {
@@ -183,9 +193,9 @@ namespace app.Views.Pages
                 return;
             }
 
-            TryRun(() =>
+            try
             {
-                var potrosac = potrosacService.VratiPotrosaca(id.Value);
+                var potrosac = await potrosacService.VratiPotrosaca(id.Value);
                 var dialog = new PotrosacDialog(DialogParent, potrosac);
 
                 while (true)
@@ -202,9 +212,9 @@ namespace app.Views.Pages
                     try
                     {
                         dialog.ClearError();
-                        potrosacService.IzmeniPotrosaca(dialog.ToSaveDto());
+                        await potrosacService.IzmeniPotrosaca(dialog.ToSaveDto());
                         dialog.Destroy();
-                        UcitajPotrosace(true);
+                        UcitajPotrosace();
                         Report("Potrosac je izmenjen.");
                         return;
                     }
@@ -214,10 +224,14 @@ namespace app.Views.Pages
                         Report("Potrosac nije izmenjen: " + ex.Message);
                     }
                 }
-            });
+            }
+            catch (Exception ex)
+            {
+                Report(ex.Message);
+            }
         }
 
-        private void ObrisiPotrosaca()
+        private async void ObrisiPotrosaca()
         {
             if (!EnsureService("Potrosac ne moze biti obrisan jer PotrosacService nije konfigurisan."))
             {
@@ -232,25 +246,31 @@ namespace app.Views.Pages
                 return;
             }
 
-            TryRun(() =>
+            try
             {
-                potrosacService.ObrisiPotrosaca(id.Value);
-                UcitajPotrosace(true);
+                await potrosacService.ObrisiPotrosaca(id.Value);
+                UcitajPotrosace();
                 Report("Potrosac je obrisan.");
-            });
+            }
+            catch (Exception ex)
+            {
+                Report(ex.Message);
+            }
         }
 
-        private void PoveziPotrosacaIBrojilo()
+        private async void PoveziPotrosacaIBrojilo()
         {
-            RunLinkOperation((service, dto) => service.PoveziPotrosacaIBrojilo(dto), "Potrosac i brojilo su povezani.");
+            await RunLinkOperation((service, dto) => service.PoveziPotrosacaIBrojilo(dto), "Potrosac i brojilo su povezani.");
         }
 
-        private void RaskiniVezuPotrosacBrojilo()
+        private async void RaskiniVezuPotrosacBrojilo()
         {
-            RunLinkOperation((service, dto) => service.RaskiniVezuPotrosacBrojilo(dto), "Veza potrosaca i brojila je raskinuta.");
+            await RunLinkOperation((service, dto) => service.RaskiniVezuPotrosacBrojilo(dto), "Veza potrosaca i brojila je raskinuta.");
         }
 
-        private void RunLinkOperation(Action<PotrosacService, PotrosacBrojiloLinkDto> operation, string successMessage)
+        private async Task RunLinkOperation(
+            Func<PotrosacService, PotrosacBrojiloLinkDto, Task> operation,
+            string successMessage)
         {
             var id = SelectedPotrosacId();
 
@@ -282,8 +302,8 @@ namespace app.Views.Pages
                 try
                 {
                     dialog.ClearError();
-                    operation(potrosacService, dialog.ToDto());
-                    UcitajPotrosace(true);
+                    await operation(potrosacService, dialog.ToDto());
+                    UcitajPotrosace();
                     Report(successMessage);
                     dialog.Destroy();
                     return;
@@ -296,7 +316,7 @@ namespace app.Views.Pages
             }
         }
 
-        private void PrikaziBrojilaZaPotrosaca()
+        private async void PrikaziBrojilaZaPotrosaca()
         {
             if (!EnsureService("Brojila ne mogu biti ucitana jer PotrosacService nije konfigurisan."))
             {
@@ -311,15 +331,19 @@ namespace app.Views.Pages
                 return;
             }
 
-            TryRun(() =>
+            try
             {
-                var brojila = potrosacService.VratiBrojilaZaPotrosaca(id.Value);
+                var brojila = await potrosacService.VratiBrojilaZaPotrosaca(id.Value);
                 var serijskiBrojevi = string.Join(", ", brojila.Select(x => x.SerijskiBroj));
 
                 Report(brojila.Count == 0
                     ? "Potrosac nema povezana brojila."
                     : "Brojila potrosaca: " + serijskiBrojevi);
-            });
+            }
+            catch (Exception ex)
+            {
+                Report(ex.Message);
+            }
         }
 
         private long? SelectedPotrosacId()
@@ -343,20 +367,6 @@ namespace app.Views.Pages
 
             Report(message + " Podesi EPS_TRACKER_ORACLE_CONNECTION_STRING ili ORACLE_CONNECTION_STRING.");
             return false;
-        }
-
-        private bool TryRun(System.Action action)
-        {
-            try
-            {
-                action();
-                return true;
-            }
-            catch (Exception ex)
-            {
-                Report(ex.Message);
-                return false;
-            }
         }
 
         private static string[] ToRow(PotrosacListDto potrosac)

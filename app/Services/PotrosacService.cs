@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mail;
+using System.Threading.Tasks;
 using app.DTO;
 using app.Entities;
 using app.Entities.Enums;
@@ -21,7 +22,7 @@ namespace app.Services
                 ?? throw new ArgumentNullException(nameof(sessionFactoryProvider));
         }
 
-        public IList<PotrosacListDto> VratiPotrosace()
+        public async Task<IList<PotrosacListDto>> VratiPotrosace()
         {
             using (var session = sessionFactoryProvider.OpenSession())
             {
@@ -70,7 +71,9 @@ namespace app.Services
                         })
                     .OrderBy(x => x.Id);
 
-                return query.ToList().Select(row => new PotrosacListDto
+                var rows = await query.ToListAsync().ConfigureAwait(false);
+
+                return rows.Select(row => new PotrosacListDto
                 {
                     Id = row.Id,
                     Tip = row.Tip,
@@ -89,20 +92,20 @@ namespace app.Services
             }
         }
 
-        public PotrosacDto VratiPotrosaca(long id)
+        public async Task<PotrosacDto> VratiPotrosaca(long id)
         {
             using (var session = sessionFactoryProvider.OpenSession())
             {
-                var potrosac = GetRequiredPotrosac(session, id);
+                var potrosac = await GetRequiredPotrosac(session, id).ConfigureAwait(false);
                 return MapToDto(potrosac);
             }
         }
 
-        public IList<BrojiloListDto> VratiBrojilaZaPotrosaca(long potrosacId)
+        public async Task<IList<BrojiloListDto>> VratiBrojilaZaPotrosaca(long potrosacId)
         {
             using (var session = sessionFactoryProvider.OpenSession())
             {
-                var potrosac = GetRequiredPotrosac(session, potrosacId);
+                var potrosac = await GetRequiredPotrosac(session, potrosacId).ConfigureAwait(false);
 
                 return potrosac.Brojila
                     .Select(MapToBrojiloListDto)
@@ -110,7 +113,7 @@ namespace app.Services
             }
         }
 
-        public long SacuvajPotrosaca(PotrosacSaveDto dto)
+        public async Task<long> SacuvajPotrosaca(PotrosacSaveDto dto)
         {
             if (dto == null)
             {
@@ -119,14 +122,14 @@ namespace app.Services
 
             if (dto.Id == 0)
             {
-                return DodajPotrosaca(dto);
+                return await DodajPotrosaca(dto).ConfigureAwait(false);
             }
 
-            IzmeniPotrosaca(dto);
+            await IzmeniPotrosaca(dto).ConfigureAwait(false);
             return dto.Id;
         }
 
-        public long DodajPotrosaca(PotrosacSaveDto dto)
+        public async Task<long> DodajPotrosaca(PotrosacSaveDto dto)
         {
             ValidateSaveDto(dto);
 
@@ -135,16 +138,16 @@ namespace app.Services
             {
                 var potrosac = new Potrosac();
                 ApplyScalarFields(potrosac, dto);
-                ApplyDetails(session, potrosac, dto);
+                await ApplyDetails(session, potrosac, dto).ConfigureAwait(false);
 
-                session.Save(potrosac);
-                transaction.Commit();
+                await session.SaveAsync(potrosac).ConfigureAwait(false);
+                await transaction.CommitAsync().ConfigureAwait(false);
 
                 return potrosac.Id;
             }
         }
 
-        public void IzmeniPotrosaca(PotrosacSaveDto dto)
+        public async Task IzmeniPotrosaca(PotrosacSaveDto dto)
         {
             ValidateSaveDto(dto);
 
@@ -156,21 +159,21 @@ namespace app.Services
             using (var session = sessionFactoryProvider.OpenSession())
             using (var transaction = session.BeginTransaction())
             {
-                var potrosac = GetRequiredPotrosac(session, dto.Id);
+                var potrosac = await GetRequiredPotrosac(session, dto.Id).ConfigureAwait(false);
 
                 ApplyScalarFields(potrosac, dto);
-                ApplyDetails(session, potrosac, dto);
+                await ApplyDetails(session, potrosac, dto).ConfigureAwait(false);
 
-                transaction.Commit();
+                await transaction.CommitAsync().ConfigureAwait(false);
             }
         }
 
-        public void ObrisiPotrosaca(long id)
+        public async Task ObrisiPotrosaca(long id)
         {
             using (var session = sessionFactoryProvider.OpenSession())
             using (var transaction = session.BeginTransaction())
             {
-                var potrosac = GetRequiredPotrosac(session, id);
+                var potrosac = await GetRequiredPotrosac(session, id).ConfigureAwait(false);
 
                 if (potrosac.Racuni.Count > 0)
                 {
@@ -188,30 +191,30 @@ namespace app.Services
                     brojilo.Potrosaci.Remove(potrosac);
                 }
 
-                session.Delete(potrosac);
-                transaction.Commit();
+                await session.DeleteAsync(potrosac).ConfigureAwait(false);
+                await transaction.CommitAsync().ConfigureAwait(false);
             }
         }
 
-        public void PoveziPotrosacaIBrojilo(PotrosacBrojiloLinkDto dto)
+        public async Task PoveziPotrosacaIBrojilo(PotrosacBrojiloLinkDto dto)
         {
             if (dto == null)
             {
                 throw new ArgumentNullException(nameof(dto));
             }
 
-            PoveziPotrosacaIBrojilo(dto.PotrosacId, dto.SerijskiBroj);
+            await PoveziPotrosacaIBrojilo(dto.PotrosacId, dto.SerijskiBroj).ConfigureAwait(false);
         }
 
-        public void PoveziPotrosacaIBrojilo(long potrosacId, string serijskiBroj)
+        public async Task PoveziPotrosacaIBrojilo(long potrosacId, string serijskiBroj)
         {
             ValidateSerijskiBroj(serijskiBroj);
 
             using (var session = sessionFactoryProvider.OpenSession())
             using (var transaction = session.BeginTransaction())
             {
-                var potrosac = GetRequiredPotrosac(session, potrosacId);
-                var brojilo = GetRequiredBrojilo(session, serijskiBroj);
+                var potrosac = await GetRequiredPotrosac(session, potrosacId).ConfigureAwait(false);
+                var brojilo = await GetRequiredBrojilo(session, serijskiBroj).ConfigureAwait(false);
 
                 if (!potrosac.Brojila.Any(x => IsSameSerijskiBroj(x.SerijskiBroj, serijskiBroj)))
                 {
@@ -219,29 +222,29 @@ namespace app.Services
                     brojilo.Potrosaci.Add(potrosac);
                 }
 
-                transaction.Commit();
+                await transaction.CommitAsync().ConfigureAwait(false);
             }
         }
 
-        public void RaskiniVezuPotrosacBrojilo(PotrosacBrojiloLinkDto dto)
+        public async Task RaskiniVezuPotrosacBrojilo(PotrosacBrojiloLinkDto dto)
         {
             if (dto == null)
             {
                 throw new ArgumentNullException(nameof(dto));
             }
 
-            RaskiniVezuPotrosacBrojilo(dto.PotrosacId, dto.SerijskiBroj);
+            await RaskiniVezuPotrosacBrojilo(dto.PotrosacId, dto.SerijskiBroj).ConfigureAwait(false);
         }
 
-        public void RaskiniVezuPotrosacBrojilo(long potrosacId, string serijskiBroj)
+        public async Task RaskiniVezuPotrosacBrojilo(long potrosacId, string serijskiBroj)
         {
             ValidateSerijskiBroj(serijskiBroj);
 
             using (var session = sessionFactoryProvider.OpenSession())
             using (var transaction = session.BeginTransaction())
             {
-                var potrosac = GetRequiredPotrosac(session, potrosacId);
-                var brojilo = GetRequiredBrojilo(session, serijskiBroj);
+                var potrosac = await GetRequiredPotrosac(session, potrosacId).ConfigureAwait(false);
+                var brojilo = await GetRequiredBrojilo(session, serijskiBroj).ConfigureAwait(false);
                 var linkedBrojilo = potrosac.Brojila
                     .FirstOrDefault(x => IsSameSerijskiBroj(x.SerijskiBroj, serijskiBroj));
 
@@ -253,7 +256,7 @@ namespace app.Services
                 potrosac.Brojila.Remove(linkedBrojilo);
                 brojilo.Potrosaci.Remove(potrosac);
 
-                transaction.Commit();
+                await transaction.CommitAsync().ConfigureAwait(false);
             }
         }
 
@@ -269,24 +272,24 @@ namespace app.Services
             potrosac.KategorijaTarife = Require(dto.KategorijaTarife, "Kategorija tarife je obavezna.");
         }
 
-        private static void ApplyDetails(ISession session, Potrosac potrosac, PotrosacSaveDto dto)
+        private static async Task ApplyDetails(ISession session, Potrosac potrosac, PotrosacSaveDto dto)
         {
             if (dto.Tip == PotrosacTip.DOMACINSTVO)
             {
-                RemoveFirma(session, potrosac);
+                await RemoveFirma(session, potrosac).ConfigureAwait(false);
                 ApplyDomacinstvo(potrosac, dto.Domacinstvo);
                 return;
             }
 
             if (dto.Tip == PotrosacTip.FIRMA)
             {
-                RemoveDomacinstvo(session, potrosac);
+                await RemoveDomacinstvo(session, potrosac).ConfigureAwait(false);
                 ApplyFirma(potrosac, dto.Firma);
                 return;
             }
 
-            RemoveDomacinstvo(session, potrosac);
-            RemoveFirma(session, potrosac);
+            await RemoveDomacinstvo(session, potrosac).ConfigureAwait(false);
+            await RemoveFirma(session, potrosac).ConfigureAwait(false);
         }
 
         private static void ApplyDomacinstvo(Potrosac potrosac, DomacinstvoDto dto)
@@ -328,25 +331,25 @@ namespace app.Services
             potrosac.Firma.Pib = RequireDigits(dto.Pib, 9, "PIB mora imati tacno 9 cifara.");
         }
 
-        private static void RemoveDomacinstvo(ISession session, Potrosac potrosac)
+        private static async Task RemoveDomacinstvo(ISession session, Potrosac potrosac)
         {
             if (potrosac.Domacinstvo == null)
             {
                 return;
             }
 
-            session.Delete(potrosac.Domacinstvo);
+            await session.DeleteAsync(potrosac.Domacinstvo).ConfigureAwait(false);
             potrosac.Domacinstvo = null;
         }
 
-        private static void RemoveFirma(ISession session, Potrosac potrosac)
+        private static async Task RemoveFirma(ISession session, Potrosac potrosac)
         {
             if (potrosac.Firma == null)
             {
                 return;
             }
 
-            session.Delete(potrosac.Firma);
+            await session.DeleteAsync(potrosac.Firma).ConfigureAwait(false);
             potrosac.Firma = null;
         }
 
@@ -487,9 +490,9 @@ namespace app.Services
             return tip.ToString();
         }
 
-        private static Potrosac GetRequiredPotrosac(ISession session, long id)
+        private static async Task<Potrosac> GetRequiredPotrosac(ISession session, long id)
         {
-            var potrosac = session.Get<Potrosac>(id);
+            var potrosac = await session.GetAsync<Potrosac>(id).ConfigureAwait(false);
 
             if (potrosac == null)
             {
@@ -499,9 +502,9 @@ namespace app.Services
             return potrosac;
         }
 
-        private static Brojilo GetRequiredBrojilo(ISession session, string serijskiBroj)
+        private static async Task<Brojilo> GetRequiredBrojilo(ISession session, string serijskiBroj)
         {
-            var brojilo = session.Get<Brojilo>(serijskiBroj);
+            var brojilo = await session.GetAsync<Brojilo>(serijskiBroj).ConfigureAwait(false);
 
             if (brojilo == null)
             {
