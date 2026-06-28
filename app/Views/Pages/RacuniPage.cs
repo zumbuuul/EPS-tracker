@@ -38,14 +38,10 @@ namespace app.Views.Pages
             AddFilter(statusFilter);
             AddFilter(nacinPlacanjaFilter);
 
-            AddAction("Dodaj", "list-add", "Novi racun", (sender, args) =>
-                DodajRacun());
             AddAction("Izmeni", "document-edit", "Izmena odabranog racuna", (sender, args) =>
                 IzmeniRacun());
             AddAction("Obrisi", "edit-delete", "Brisanje odabranog racuna", (sender, args) =>
                 ObrisiRacun());
-            AddAction("Placeno", "emblem-ok", "Oznaci racun kao placen", (sender, args) =>
-                OznaciKaoPlacen());
             AddAction("Osvezi", "view-refresh", "Osvezi racune", (sender, args) =>
                 UcitajRacune());
 
@@ -147,44 +143,6 @@ namespace app.Views.Pages
             }
         }
 
-        private async void DodajRacun()
-        {
-            var dialog = new RacunDialog(DialogParent);
-
-            while (true)
-            {
-                dialog.ShowAll();
-                var response = (ResponseType)dialog.Run();
-
-                if (response != ResponseType.Ok)
-                {
-                    dialog.Destroy();
-                    return;
-                }
-
-                if (!EnsureService("Racun nije sacuvan jer RacunService nije konfigurisan."))
-                {
-                    dialog.ShowError("RacunService nije konfigurisan. Podesi EPS_TRACKER_ORACLE_CONNECTION_STRING ili ORACLE_CONNECTION_STRING.");
-                    continue;
-                }
-
-                try
-                {
-                    dialog.ClearError();
-                    var brojRacuna = await racunService.DodajRacun(dialog.ToSaveDto());
-                    UcitajRacune();
-                    Report("Racun je dodat. Broj racuna: " + brojRacuna);
-                    dialog.Destroy();
-                    return;
-                }
-                catch (Exception ex)
-                {
-                    dialog.ShowError(ex.Message);
-                    Report("Racun nije dodat: " + ex.Message);
-                }
-            }
-        }
-
         private async void IzmeniRacun()
         {
             if (!EnsureService("Racun ne moze biti ucitan za izmenu jer RacunService nije konfigurisan."))
@@ -258,33 +216,6 @@ namespace app.Views.Pages
                 await racunService.ObrisiRacun(brojRacuna);
                 UcitajRacune();
                 Report("Racun je obrisan.");
-            }
-            catch (Exception ex)
-            {
-                Report(ex.Message);
-            }
-        }
-
-        private async void OznaciKaoPlacen()
-        {
-            if (!EnsureService("Racun ne moze biti oznacen kao placen jer RacunService nije konfigurisan."))
-            {
-                return;
-            }
-
-            var brojRacuna = SelectedBrojRacuna();
-
-            if (string.IsNullOrWhiteSpace(brojRacuna))
-            {
-                Report("Izaberi racun.");
-                return;
-            }
-
-            try
-            {
-                await racunService.OznaciKaoPlacen(brojRacuna);
-                UcitajRacune();
-                Report("Racun je oznacen kao placen.");
             }
             catch (Exception ex)
             {

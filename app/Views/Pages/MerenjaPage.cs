@@ -162,7 +162,7 @@ namespace app.Views.Pages
                     dialog.ClearError();
                     var id = await merenjeService.DodajMerenje(dialog.ToSaveDto());
                     UcitajMerenja();
-                    Report("Merenje je dodato. ID: " + id);
+                    Report("Merenje i racun su dodati. Merenje ID: " + id);
                     dialog.Destroy();
                     return;
                 }

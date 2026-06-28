@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using app.DTO;
@@ -13,6 +14,11 @@ namespace app.Services
 {
     public class MerenjeService
     {
+        private const decimal CenaAktivnePotrosnje = 8.5m;
+        private const decimal CenaReaktivnePotrosnje = 2.0m;
+        private const decimal CenaSnage = 12.0m;
+        private const decimal PdvStopa = 0.20m;
+
         private readonly NHibernateSessionFactoryProvider sessionFactoryProvider;
 
         public MerenjeService(NHibernateSessionFactoryProvider sessionFactoryProvider)
@@ -51,11 +57,17 @@ namespace app.Services
             using (var transaction = session.BeginTransaction())
             {
                 var brojilo = await GetRequiredBrojilo(session, dto.SerijskiBroj).ConfigureAwait(false);
+                var potrosac = GetSinglePotrosacForBrojilo(brojilo);
                 var merenje = new Merenje();
 
                 ApplyFields(merenje, dto, brojilo);
 
                 await session.SaveAsync(merenje).ConfigureAwait(false);
+                await session.FlushAsync().ConfigureAwait(false);
+
+                var racun = CreateGeneratedRacun(merenje, potrosac);
+                await session.SaveAsync(racun).ConfigureAwait(false);
+
                 await transaction.CommitAsync().ConfigureAwait(false);
 
                 return merenje.Id;
@@ -146,6 +158,61 @@ namespace app.Services
             merenje.TipIzvora = ParseTipIzvora(dto.TipIzvora);
             merenje.IsValidirano = ParseDaNe(dto.IsValidirano);
             merenje.Komentar = dto.Komentar.Trim();
+        }
+
+        private static Racun CreateGeneratedRacun(Merenje merenje, Potrosac potrosac)
+        {
+            var datumMerenja = merenje.DatumVremeMerenja.Date;
+            var datumIzdavanja = datumMerenja.AddDays(1);
+            var periodOd = new DateTime(datumMerenja.Year, datumMerenja.Month, 1);
+            var iznosBezPdv = CalculateIznosBezPdv(merenje);
+            var pdv = Math.Round(iznosBezPdv * PdvStopa, 2);
+
+            return new Racun
+            {
+                BrojRacuna = BuildBrojRacuna(merenje),
+                DatumIzdavanja = datumIzdavanja,
+                RokPlacanja = datumIzdavanja.AddDays(20),
+                Komentar = "Automatski generisan iz merenja.",
+                NacinPlacanja = "",
+                PeriodPotrosnjeOd = periodOd,
+                PeriodPotrosnjeDo = datumMerenja,
+                IznosBezPdv = iznosBezPdv,
+                Pdv = pdv,
+                Status = "POSLAT",
+                Merenje = merenje,
+                Potrosac = potrosac
+            };
+        }
+
+        private static decimal CalculateIznosBezPdv(Merenje merenje)
+        {
+            var aktivna = merenje.PotrosnjaAktivna.Value * CenaAktivnePotrosnje;
+            var reaktivna = merenje.PotrosnjaReaktivna.Value * CenaReaktivnePotrosnje;
+            var snaga = merenje.Snaga.Value * CenaSnage;
+
+            return Math.Round(aktivna + reaktivna + snaga, 2);
+        }
+
+        private static string BuildBrojRacuna(Merenje merenje)
+        {
+            return "R-" + merenje.DatumVremeMerenja.ToString("yyyyMM", CultureInfo.InvariantCulture)
+                + "-" + merenje.Id.ToString("D6", CultureInfo.InvariantCulture);
+        }
+
+        private static Potrosac GetSinglePotrosacForBrojilo(Brojilo brojilo)
+        {
+            if (brojilo.Potrosaci.Count == 0)
+            {
+                throw new InvalidOperationException("Brojilo nema povezanog potrosaca, pa racun ne moze biti generisan.");
+            }
+
+            if (brojilo.Potrosaci.Count > 1)
+            {
+                throw new InvalidOperationException("Brojilo ima vise potrosaca. Racun mora da zna za kog potrosaca se generise.");
+            }
+
+            return brojilo.Potrosaci[0];
         }
 
         private static MerenjeDto MapToDto(Merenje merenje)
