@@ -41,8 +41,8 @@ namespace app.Views.Pages
                 ObrisiBrojilo());
             AddAction("Merenja", "accessories-calculator", "Merenja za odabrano brojilo", (sender, args) =>
                 PrikaziMerenjaZaBrojilo());
-            AddAction("Kvar", "dialog-warning", "Prijavi kvar za brojilo", (sender, args) =>
-                Report("Prijava kvara ce se povezati kada implementiramo KvarService."));
+            AddAction("Kvarovi", "dialog-warning", "Kvarovi za odabrano brojilo", (sender, args) =>
+                PrikaziKvaroveZaBrojilo());
             AddAction("Osvezi", "view-refresh", "Osvezi brojila", (sender, args) =>
                 UcitajBrojila());
 
@@ -271,13 +271,49 @@ namespace app.Views.Pages
             try
             {
                 var merenja = await brojiloService.VratiMerenjaZaBrojilo(serijskiBroj);
-                var datumi = string.Join(", ", merenja
-                    .Take(5)
-                    .Select(x => x.DatumVremeMerenja.ToString("yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture)));
+                var dialog = new BrojiloMerenjaDialog(DialogParent, serijskiBroj, merenja);
+
+                dialog.ShowAll();
+                dialog.Run();
+                dialog.Destroy();
 
                 Report(merenja.Count == 0
                     ? "Brojilo nema evidentirana merenja."
-                    : "Merenja brojila: " + datumi);
+                    : "Prikazana merenja brojila: " + merenja.Count);
+            }
+            catch (Exception ex)
+            {
+                Report(ex.Message);
+            }
+        }
+
+        private async void PrikaziKvaroveZaBrojilo()
+        {
+            if (!EnsureService("Kvarovi ne mogu biti ucitani jer BrojiloService nije konfigurisan."))
+            {
+                return;
+            }
+
+            var serijskiBroj = SelectedSerijskiBroj();
+
+            if (string.IsNullOrWhiteSpace(serijskiBroj))
+            {
+                Report("Izaberi brojilo.");
+                return;
+            }
+
+            try
+            {
+                var kvarovi = await brojiloService.VratiKvaroveZaBrojilo(serijskiBroj);
+                var dialog = new BrojiloKvaroviDialog(DialogParent, serijskiBroj, kvarovi);
+
+                dialog.ShowAll();
+                dialog.Run();
+                dialog.Destroy();
+
+                Report(kvarovi.Count == 0
+                    ? "Brojilo nema evidentirane kvarove."
+                    : "Prikazani kvarovi brojila: " + kvarovi.Count);
             }
             catch (Exception ex)
             {

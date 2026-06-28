@@ -60,6 +60,21 @@ namespace app.Services
             }
         }
 
+        public async Task<IList<KvarListDto>> VratiKvaroveZaBrojilo(string serijskiBroj)
+        {
+            ValidateSerijskiBroj(serijskiBroj);
+
+            using (var session = sessionFactoryProvider.OpenSession())
+            {
+                var brojilo = await GetRequiredBrojilo(session, serijskiBroj).ConfigureAwait(false);
+
+                return brojilo.Kvarovi
+                    .OrderByDescending(x => x.DatumPrijave)
+                    .Select(MapToKvarListDto)
+                    .ToList();
+            }
+        }
+
         public async Task DodajBrojilo(BrojiloSaveDto dto)
         {
             var tipovi = ValidateSaveDto(dto);
