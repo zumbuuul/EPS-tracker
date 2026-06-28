@@ -13,15 +13,17 @@ namespace app.Views.Pages
     public class MerenjaPage : ListPage
     {
         private readonly MerenjeService merenjeService;
+        private readonly RacunService racunService;
         private readonly SearchEntry searchEntry;
         private readonly ComboBoxText izvorFilter;
         private IList<MerenjeListDto> merenja;
         private bool hasTriedInitialLoad;
 
-        public MerenjaPage(MerenjeService merenjeService, Action<string> showStatus)
+        public MerenjaPage(MerenjeService merenjeService, RacunService racunService, Action<string> showStatus)
             : base("Merenja", "Stvarna potrosnja, izvor ocitavanja i validacija.", showStatus)
         {
             this.merenjeService = merenjeService;
+            this.racunService = racunService;
             merenja = new List<MerenjeListDto>();
 
             searchEntry = ViewFactory.Search("Pretraga merenja");
@@ -254,7 +256,7 @@ namespace app.Views.Pages
 
         private async void PrikaziRacunZaMerenje()
         {
-            if (!EnsureService("Racun ne moze biti ucitan jer MerenjeService nije konfigurisan."))
+            if (!EnsureRacunService("Racun ne moze biti ucitan jer RacunService nije konfigurisan."))
             {
                 return;
             }
@@ -269,7 +271,7 @@ namespace app.Views.Pages
 
             try
             {
-                var racun = await merenjeService.VratiRacunZaMerenje(id.Value);
+                var racun = await racunService.VratiRacunZaMerenje(id.Value);
                 var dialog = new MerenjeRacunDialog(DialogParent, id.Value, racun);
 
                 dialog.ShowAll();
@@ -301,6 +303,17 @@ namespace app.Views.Pages
         private bool EnsureService(string message)
         {
             if (merenjeService != null)
+            {
+                return true;
+            }
+
+            Report(message + " Podesi EPS_TRACKER_ORACLE_CONNECTION_STRING ili ORACLE_CONNECTION_STRING.");
+            return false;
+        }
+
+        private bool EnsureRacunService(string message)
+        {
+            if (racunService != null)
             {
                 return true;
             }

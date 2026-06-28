@@ -11,7 +11,8 @@ namespace app.Views
         public MainWindow(
             PotrosacService potrosacService,
             BrojiloService brojiloService,
-            MerenjeService merenjeService)
+            MerenjeService merenjeService,
+            RacunService racunService)
             : base("EPS Tracker")
         {
             SetDefaultSize(1280, 760);
@@ -37,8 +38,8 @@ namespace app.Views
 
             notebook.AppendPage(new PotrosaciPage(potrosacService, SetStatus), new Label("Potrosaci"));
             notebook.AppendPage(new BrojilaPage(brojiloService, SetStatus), new Label("Brojila"));
-            notebook.AppendPage(new MerenjaPage(merenjeService, SetStatus), new Label("Merenja"));
-            notebook.AppendPage(new RacuniPage(SetStatus), new Label("Racuni"));
+            notebook.AppendPage(new MerenjaPage(merenjeService, racunService, SetStatus), new Label("Merenja"));
+            notebook.AppendPage(new RacuniPage(racunService, SetStatus), new Label("Racuni"));
             notebook.AppendPage(new KvaroviPage(SetStatus), new Label("Kvarovi"));
             notebook.AppendPage(new StanjeMrezePage(SetStatus), new Label("Stanje mreze"));
 

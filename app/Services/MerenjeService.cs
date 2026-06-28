@@ -43,20 +43,6 @@ namespace app.Services
             }
         }
 
-        public async Task<RacunDto> VratiRacunZaMerenje(long merenjeId)
-        {
-            using (var session = sessionFactoryProvider.OpenSession())
-            {
-                await GetRequiredMerenje(session, merenjeId).ConfigureAwait(false);
-
-                var racun = await session.Query<Racun>()
-                    .FirstOrDefaultAsync(x => x.Merenje.Id == merenjeId)
-                    .ConfigureAwait(false);
-
-                return racun == null ? null : MapToRacunDto(racun);
-            }
-        }
-
         public async Task<long> DodajMerenje(MerenjeSaveDto dto)
         {
             ValidateSaveDto(dto);
@@ -197,44 +183,6 @@ namespace app.Services
                 TipIzvora = merenje.TipIzvora.HasValue ? merenje.TipIzvora.Value.ToString() : null,
                 IsValidirano = ToDaNeText(merenje.IsValidirano)
             };
-        }
-
-        private static RacunDto MapToRacunDto(Racun racun)
-        {
-            return new RacunDto
-            {
-                BrojRacuna = racun.BrojRacuna,
-                PotrosacId = racun.Potrosac != null ? racun.Potrosac.Id : 0,
-                ImeIliNazivPotrosaca = racun.Potrosac != null ? BuildImeIliNaziv(racun.Potrosac) : null,
-                SerijskiBroj = racun.SerijskiBroj,
-                MerenjeId = racun.Merenje != null ? racun.Merenje.Id : 0,
-                DatumIzdavanja = racun.DatumIzdavanja,
-                RokPlacanja = racun.RokPlacanja,
-                PeriodPotrosnjeOd = racun.PeriodPotrosnjeOd,
-                PeriodPotrosnjeDo = racun.PeriodPotrosnjeDo,
-                UkupnaPotrosnja = racun.UkupnaPotrosnja,
-                IznosBezPdv = racun.IznosBezPdv,
-                Pdv = racun.Pdv,
-                UkupanIznos = racun.UkupanIznos,
-                Status = racun.Status,
-                NacinPlacanja = racun.NacinPlacanja,
-                Komentar = racun.Komentar
-            };
-        }
-
-        private static string BuildImeIliNaziv(Potrosac potrosac)
-        {
-            if (potrosac.Domacinstvo != null)
-            {
-                return ((potrosac.Domacinstvo.Ime ?? string.Empty) + " " + (potrosac.Domacinstvo.Prezime ?? string.Empty)).Trim();
-            }
-
-            if (potrosac.Firma != null)
-            {
-                return potrosac.Firma.Naziv;
-            }
-
-            return potrosac.Tip.ToString();
         }
 
         private static async Task<Merenje> GetRequiredMerenje(ISession session, long id)
