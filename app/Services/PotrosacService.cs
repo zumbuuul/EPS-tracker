@@ -265,11 +265,11 @@ namespace app.Services
             potrosac.Tip = ParsePotrosacTip(dto.Tip);
             potrosac.Email = Normalize(dto.Email);
             potrosac.Telefon = Normalize(dto.Telefon);
-            potrosac.Adresa = Require(dto.Adresa, "Adresa je obavezna.");
-            potrosac.Grad = Require(dto.Grad, "Grad je obavezan.");
+            potrosac.Adresa = dto.Adresa.Trim();
+            potrosac.Grad = dto.Grad.Trim();
             potrosac.Komentar = Normalize(dto.Komentar);
-            potrosac.Status = Require(dto.Status, "Status potrosaca je obavezan.");
-            potrosac.KategorijaTarife = Require(dto.KategorijaTarife, "Kategorija tarife je obavezna.");
+            potrosac.Status = dto.Status.Trim();
+            potrosac.KategorijaTarife = dto.KategorijaTarife.Trim();
         }
 
         private static async Task ApplyDetails(ISession session, Potrosac potrosac, PotrosacSaveDto dto)
@@ -294,11 +294,6 @@ namespace app.Services
 
         private static void ApplyDomacinstvo(Potrosac potrosac, DomacinstvoDto dto)
         {
-            if (dto == null)
-            {
-                throw new ArgumentException("Podaci o domacinstvu su obavezni za tip DOMACINSTVO.");
-            }
-
             if (potrosac.Domacinstvo == null)
             {
                 potrosac.Domacinstvo = new Domacinstvo
@@ -307,18 +302,13 @@ namespace app.Services
                 };
             }
 
-            potrosac.Domacinstvo.Jmbg = RequireDigits(dto.Jmbg, 13, "JMBG mora imati tacno 13 cifara.");
-            potrosac.Domacinstvo.Ime = Require(dto.Ime, "Ime je obavezno.");
-            potrosac.Domacinstvo.Prezime = Require(dto.Prezime, "Prezime je obavezno.");
+            potrosac.Domacinstvo.Jmbg = dto.Jmbg.Trim();
+            potrosac.Domacinstvo.Ime = dto.Ime.Trim();
+            potrosac.Domacinstvo.Prezime = dto.Prezime.Trim();
         }
 
         private static void ApplyFirma(Potrosac potrosac, FirmaDto dto)
         {
-            if (dto == null)
-            {
-                throw new ArgumentException("Podaci o firmi su obavezni za tip FIRMA.");
-            }
-
             if (potrosac.Firma == null)
             {
                 potrosac.Firma = new Firma
@@ -327,8 +317,8 @@ namespace app.Services
                 };
             }
 
-            potrosac.Firma.Naziv = Require(dto.Naziv, "Naziv firme je obavezan.");
-            potrosac.Firma.Pib = RequireDigits(dto.Pib, 9, "PIB mora imati tacno 9 cifara.");
+            potrosac.Firma.Naziv = dto.Naziv.Trim();
+            potrosac.Firma.Pib = dto.Pib.Trim();
         }
 
         private static async Task RemoveDomacinstvo(ISession session, Potrosac potrosac)
@@ -521,11 +511,12 @@ namespace app.Services
                 throw new ArgumentNullException(nameof(dto));
             }
 
-            ParsePotrosacTip(dto.Tip);
+            var tip = ParsePotrosacTip(dto.Tip);
             Require(dto.Adresa, "Adresa je obavezna.");
             Require(dto.Grad, "Grad je obavezan.");
             Require(dto.Status, "Status potrosaca je obavezan.");
             Require(dto.KategorijaTarife, "Kategorija tarife je obavezna.");
+            ValidatePotrosacDetails(dto, tip);
 
             if (!string.IsNullOrWhiteSpace(dto.Telefon) && !IsDigitsOnly(dto.Telefon.Trim()))
             {
@@ -536,6 +527,43 @@ namespace app.Services
             {
                 throw new ArgumentException("Email mora biti u ispravnom formatu.");
             }
+        }
+
+        private static void ValidatePotrosacDetails(PotrosacSaveDto dto, PotrosacTip tip)
+        {
+            if (tip == PotrosacTip.DOMACINSTVO)
+            {
+                ValidateDomacinstvo(dto.Domacinstvo);
+                return;
+            }
+
+            if (tip == PotrosacTip.FIRMA)
+            {
+                ValidateFirma(dto.Firma);
+            }
+        }
+
+        private static void ValidateDomacinstvo(DomacinstvoDto dto)
+        {
+            if (dto == null)
+            {
+                throw new ArgumentException("Podaci o domacinstvu su obavezni za tip DOMACINSTVO.");
+            }
+
+            Require(dto.Ime, "Ime je obavezno.");
+            Require(dto.Prezime, "Prezime je obavezno.");
+            RequireDigits(dto.Jmbg, 13, "JMBG mora imati tacno 13 cifara.");
+        }
+
+        private static void ValidateFirma(FirmaDto dto)
+        {
+            if (dto == null)
+            {
+                throw new ArgumentException("Podaci o firmi su obavezni za tip FIRMA.");
+            }
+
+            Require(dto.Naziv, "Naziv firme je obavezan.");
+            RequireDigits(dto.Pib, 9, "PIB mora imati tacno 9 cifara.");
         }
 
         private static void ValidateSerijskiBroj(string serijskiBroj)
