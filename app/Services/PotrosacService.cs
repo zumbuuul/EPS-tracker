@@ -380,22 +380,18 @@ namespace app.Services
 
         private static RacunListDto MapToRacunListDto(Racun racun, Potrosac potrosac)
         {
-            var merenje = racun.Merenje;
-
             return new RacunListDto
             {
                 BrojRacuna = racun.BrojRacuna,
                 PotrosacId = potrosac.Id,
                 ImeIliNazivPotrosaca = BuildImeIliNaziv(potrosac),
-                SerijskiBroj = merenje != null && merenje.Brojilo != null
-                    ? merenje.Brojilo.SerijskiBroj
-                    : null,
+                SerijskiBroj = racun.SerijskiBroj,
                 PeriodPotrosnjeOd = racun.PeriodPotrosnjeOd,
                 PeriodPotrosnjeDo = racun.PeriodPotrosnjeDo,
-                UkupnaPotrosnja = merenje != null ? merenje.PotrosnjaAktivna : null,
+                UkupnaPotrosnja = racun.UkupnaPotrosnja,
                 IznosBezPdv = racun.IznosBezPdv,
                 Pdv = racun.Pdv,
-                UkupanIznos = racun.IznosBezPdv + racun.Pdv,
+                UkupanIznos = racun.UkupanIznos,
                 DatumIzdavanja = racun.DatumIzdavanja,
                 RokPlacanja = racun.RokPlacanja,
                 Status = racun.Status,
@@ -416,18 +412,8 @@ namespace app.Services
                 Status = kvar.Status,
                 Prioritet = kvar.Prioritet,
                 NadlezniTim = kvar.NadlezniTim,
-                TrajanjeUSatima = CalculateTrajanjeUSatima(kvar)
+                TrajanjeUSatima = kvar.TrajanjeUSatima
             };
-        }
-
-        private static decimal? CalculateTrajanjeUSatima(Kvar kvar)
-        {
-            if (!kvar.DatumOtklanjanja.HasValue)
-            {
-                return null;
-            }
-
-            return (decimal)(kvar.DatumOtklanjanja.Value - kvar.DatumPrijave).TotalHours;
         }
 
         private static string BuildImeIliNaziv(Potrosac potrosac)

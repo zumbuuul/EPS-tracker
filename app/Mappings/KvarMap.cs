@@ -48,6 +48,12 @@ namespace app.Mappings
                 .Column("DATUM_OTKLANJANJA")
                 .Nullable();
 
+            Map(x => x.TrajanjeUSatima)
+                .Column("TRAJANJE_U_SATIMA")
+                .Precision(10)
+                .Scale(2)
+                .Nullable();
+
             Map(x => x.Prioritet)
                 .Column("PRIORITET")
                 .CustomType<DdlEnumStringType<KvarPrioritet>>()

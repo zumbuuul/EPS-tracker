@@ -31,5 +31,31 @@ namespace app.Entities
         public virtual Merenje Merenje { get; set; }
 
         public virtual Potrosac Potrosac { get; set; }
+
+        public virtual Brojilo Brojilo
+        {
+            get { return Merenje != null ? Merenje.Brojilo : null; }
+        }
+
+        public virtual string SerijskiBroj
+        {
+            get
+            {
+                return Brojilo != null ? Brojilo.SerijskiBroj : null;
+            }
+        }
+
+        public virtual decimal? UkupnaPotrosnja
+        {
+            get
+            {
+                return Merenje != null ? Merenje.PotrosnjaAktivna : null;
+            }
+        }
+
+        public virtual decimal UkupanIznos
+        {
+            get { return IznosBezPdv + Pdv; }
+        }
     }
 }

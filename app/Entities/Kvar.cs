@@ -25,6 +25,8 @@ namespace app.Entities
 
         public virtual DateTime? DatumOtklanjanja { get; set; }
 
+        public virtual decimal? TrajanjeUSatima { get; set; }
+
         public virtual KvarPrioritet? Prioritet { get; set; }
 
         public virtual string Komentar { get; set; }
