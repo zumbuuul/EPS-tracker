@@ -259,12 +259,69 @@ namespace app.Views.Pages
 
         private async void PoveziPotrosacaIBrojilo()
         {
-            await RunLinkOperation((service, dto) => service.PoveziPotrosacaIBrojilo(dto), "Potrosac i brojilo su povezani.");
+            await RunLinkOperation(
+                (service, dto) => service.PoveziPotrosacaIBrojilo(dto),
+                "Potrosac i brojilo su povezani.");
         }
 
         private async void RaskiniVezuPotrosacBrojilo()
         {
-            await RunLinkOperation((service, dto) => service.RaskiniVezuPotrosacBrojilo(dto), "Veza potrosaca i brojila je raskinuta.");
+            var id = SelectedPotrosacId();
+
+            if (!id.HasValue)
+            {
+                Report("Izaberi potrosaca.");
+                return;
+            }
+
+            if (!EnsureService("Veza nije raskinuta jer PotrosacService nije konfigurisan."))
+            {
+                return;
+            }
+
+            try
+            {
+                var brojila = await potrosacService.VratiBrojilaZaPotrosaca(id.Value);
+
+                if (brojila.Count == 0)
+                {
+                    Report("Potrosac nema povezana brojila.");
+                    return;
+                }
+
+                var dialog = new PotrosacBrojiloLinkDialog(DialogParent, id.Value, brojila);
+
+                while (true)
+                {
+                    dialog.ShowAll();
+                    var response = (ResponseType)dialog.Run();
+
+                    if (response != ResponseType.Ok)
+                    {
+                        dialog.Destroy();
+                        return;
+                    }
+
+                    try
+                    {
+                        dialog.ClearError();
+                        await potrosacService.RaskiniVezuPotrosacBrojilo(dialog.ToDto());
+                        UcitajPotrosace();
+                        Report("Veza potrosaca i brojila je raskinuta.");
+                        dialog.Destroy();
+                        return;
+                    }
+                    catch (Exception ex)
+                    {
+                        dialog.ShowError(ex.Message);
+                        Report("Veza nije raskinuta: " + ex.Message);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Report(ex.Message);
+            }
         }
 
         private async Task RunLinkOperation(
@@ -333,11 +390,15 @@ namespace app.Views.Pages
             try
             {
                 var brojila = await potrosacService.VratiBrojilaZaPotrosaca(id.Value);
-                var serijskiBrojevi = string.Join(", ", brojila.Select(x => x.SerijskiBroj));
+                var dialog = new PotrosacBrojilaDialog(DialogParent, id.Value, brojila);
+
+                dialog.ShowAll();
+                dialog.Run();
+                dialog.Destroy();
 
                 Report(brojila.Count == 0
                     ? "Potrosac nema povezana brojila."
-                    : "Brojila potrosaca: " + serijskiBrojevi);
+                    : "Prikazana brojila potrosaca: " + brojila.Count);
             }
             catch (Exception ex)
             {
