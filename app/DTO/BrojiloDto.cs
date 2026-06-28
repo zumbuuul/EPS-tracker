@@ -1,6 +1,11 @@
 using System;
 using System.Collections.Generic;
+<<<<<<< HEAD
 using app.Entities.Enums;
+=======
+using System.Linq;
+using System.Text;
+>>>>>>> 30cdadda99c4fff3b2e853e691e1a31b640397c5
 
 namespace app.DTO
 {
@@ -30,6 +35,7 @@ namespace app.DTO
 
     public class BrojiloDto
     {
+<<<<<<< HEAD
         public BrojiloDto()
         {
             TipoviBrojila = new List<TipBrojila>();
@@ -141,5 +147,16 @@ namespace app.DTO
         public string StatusSenzora { get; set; }
 
         public decimal? RadnoVreme { get; set; }
+=======
+        public string SerijskiBroj { get; set; }
+        public DateTime DatumInstalacije { get; set; }
+        public string Status { get; set; }
+        public string Lokacija { get; set; }
+        public decimal? KoeficijentMnozenja { get; set; }
+
+        public string Tipovi { get; set; }
+        public string Potrosaci { get; set; }
+        public string DatumiZamene { get; set; }
+>>>>>>> 30cdadda99c4fff3b2e853e691e1a31b640397c5
     }
 }
