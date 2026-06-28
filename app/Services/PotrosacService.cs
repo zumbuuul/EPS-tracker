@@ -25,10 +25,67 @@ namespace app.Services
         {
             using (var session = sessionFactoryProvider.OpenSession())
             {
-                return session.Query<Potrosac>()
-                    .ToList()
-                    .Select(MapToListDto)
-                    .ToList();
+                var query = session.Query<Potrosac>()
+                    .GroupJoin(
+                        session.Query<Domacinstvo>(),
+                        potrosac => potrosac.Id,
+                        domacinstvo => domacinstvo.Id,
+                        (potrosac, domacinstva) => new
+                        {
+                            Potrosac = potrosac,
+                            Domacinstva = domacinstva
+                        })
+                    .SelectMany(
+                        x => x.Domacinstva.DefaultIfEmpty(),
+                        (x, domacinstvo) => new
+                        {
+                            x.Potrosac,
+                            Domacinstvo = domacinstvo
+                        })
+                    .GroupJoin(
+                        session.Query<Firma>(),
+                        x => x.Potrosac.Id,
+                        firma => firma.Id,
+                        (x, firme) => new
+                        {
+                            x.Potrosac,
+                            x.Domacinstvo,
+                            Firme = firme
+                        })
+                    .SelectMany(
+                        x => x.Firme.DefaultIfEmpty(),
+                        (x, firma) => new
+                        {
+                            x.Potrosac.Id,
+                            x.Potrosac.Tip,
+                            x.Potrosac.Grad,
+                            x.Potrosac.Telefon,
+                            x.Potrosac.Email,
+                            x.Potrosac.Status,
+                            x.Potrosac.KategorijaTarife,
+                            Ime = x.Domacinstvo.Ime,
+                            Prezime = x.Domacinstvo.Prezime,
+                            Naziv = firma.Naziv,
+                            BrojBrojila = x.Potrosac.Brojila.Count()
+                        })
+                    .OrderBy(x => x.Id);
+
+                return query.ToList().Select(row => new PotrosacListDto
+                {
+                    Id = row.Id,
+                    Tip = row.Tip,
+                    ImeIliNaziv = BuildImeIliNaziv(
+                        row.Tip,
+                        row.Ime,
+                        row.Prezime,
+                        row.Naziv),
+                    Grad = row.Grad,
+                    Telefon = row.Telefon,
+                    Email = row.Email,
+                    Status = row.Status,
+                    KategorijaTarife = row.KategorijaTarife,
+                    BrojBrojila = row.BrojBrojila
+                }).ToList();
             }
         }
 
@@ -293,22 +350,6 @@ namespace app.Services
             potrosac.Firma = null;
         }
 
-        private static PotrosacListDto MapToListDto(Potrosac potrosac)
-        {
-            return new PotrosacListDto
-            {
-                Id = potrosac.Id,
-                Tip = potrosac.Tip,
-                ImeIliNaziv = BuildImeIliNaziv(potrosac),
-                Grad = potrosac.Grad,
-                Telefon = potrosac.Telefon,
-                Email = potrosac.Email,
-                Status = potrosac.Status,
-                KategorijaTarife = potrosac.KategorijaTarife,
-                BrojBrojila = potrosac.Brojila.Count
-            };
-        }
-
         private static PotrosacDto MapToDto(Potrosac potrosac)
         {
             return new PotrosacDto
@@ -429,6 +470,21 @@ namespace app.Services
             }
 
             return potrosac.Tip.ToString();
+        }
+
+        private static string BuildImeIliNaziv(PotrosacTip tip, string ime, string prezime, string naziv)
+        {
+            if (tip == PotrosacTip.DOMACINSTVO)
+            {
+                return ((ime ?? string.Empty) + " " + (prezime ?? string.Empty)).Trim();
+            }
+
+            if (tip == PotrosacTip.FIRMA)
+            {
+                return naziv;
+            }
+
+            return tip.ToString();
         }
 
         private static Potrosac GetRequiredPotrosac(ISession session, long id)
