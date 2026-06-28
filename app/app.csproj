@@ -13,9 +13,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="FluentNHibernate" Version="3.4.1" />
     <PackageReference Include="GtkSharp" Version="3.24.24.*" />
-    <PackageReference Include="Oracle.ManagedDataAccess.Core" Version="23.26.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\EPS.Core\EPS.Core.csproj" />
   </ItemGroup>
 
 </Project>
