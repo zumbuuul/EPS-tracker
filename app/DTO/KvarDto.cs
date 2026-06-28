@@ -23,6 +23,8 @@ namespace app.DTO
         public string NadlezniTim { get; set; }
 
         public decimal? TrajanjeUSatima { get; set; }
+
+        public DateTime? DatumOtklanjanja { get; set; }
     }
 
     public class KvarDto

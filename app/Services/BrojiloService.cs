@@ -482,7 +482,8 @@ namespace app.Services
                 Status = kvar.Status.ToString(),
                 Prioritet = kvar.Prioritet.HasValue ? kvar.Prioritet.Value.ToString() : null,
                 NadlezniTim = kvar.NadlezniTim,
-                TrajanjeUSatima = kvar.TrajanjeUSatima
+                TrajanjeUSatima = kvar.TrajanjeUSatima,
+                DatumOtklanjanja = kvar.DatumOtklanjanja
             };
         }
 

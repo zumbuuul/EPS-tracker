@@ -42,7 +42,8 @@ namespace app.Views.Dialogs
                     "Status",
                     "Prioritet",
                     "Tim",
-                    "Trajanje");
+                    "Trajanje",
+                    "Otklonjeno");
 
                 foreach (var kvar in kvarovi)
                 {
@@ -56,6 +57,9 @@ namespace app.Views.Dialogs
                         kvar.NadlezniTim ?? string.Empty,
                         kvar.TrajanjeUSatima.HasValue
                             ? kvar.TrajanjeUSatima.Value.ToString(CultureInfo.InvariantCulture)
+                            : string.Empty,
+                        kvar.DatumOtklanjanja.HasValue
+                            ? kvar.DatumOtklanjanja.Value.ToString("yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture)
                             : string.Empty);
                 }
 

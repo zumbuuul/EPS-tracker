@@ -32,6 +32,7 @@ namespace app
                 BrojiloService brojiloService = null;
                 MerenjeService merenjeService = null;
                 RacunService racunService = null;
+                KvarService kvarService = null;
 
                 if (!string.IsNullOrWhiteSpace(connectionString))
                 {
@@ -42,9 +43,10 @@ namespace app
                     brojiloService = new BrojiloService(sessionFactoryProvider);
                     merenjeService = new MerenjeService(sessionFactoryProvider);
                     racunService = new RacunService(sessionFactoryProvider);
+                    kvarService = new KvarService(sessionFactoryProvider);
                 }
 
-                var win = new MainWindow(potrosacService, brojiloService, merenjeService, racunService);
+                var win = new MainWindow(potrosacService, brojiloService, merenjeService, racunService, kvarService);
                 gtkApp.AddWindow(win);
 
                 win.Show();
