@@ -29,6 +29,7 @@ namespace app
                     ?? Environment.GetEnvironmentVariable("ORACLE_CONNECTION_STRING");
 
                 PotrosacService potrosacService = null;
+                BrojiloService brojiloService = null;
 
                 if (!string.IsNullOrWhiteSpace(connectionString))
                 {
@@ -36,9 +37,10 @@ namespace app
                         new OraclePersistenceOptions(connectionString));
 
                     potrosacService = new PotrosacService(sessionFactoryProvider);
+                    brojiloService = new BrojiloService(sessionFactoryProvider);
                 }
 
-                var win = new MainWindow(potrosacService);
+                var win = new MainWindow(potrosacService, brojiloService);
                 gtkApp.AddWindow(win);
 
                 win.Show();

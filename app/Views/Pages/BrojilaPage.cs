@@ -1,4 +1,9 @@
 using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using app.DTO;
+using app.Services;
 using app.Views.Dialogs;
 using app.Views.Ui;
 using Gtk;
@@ -7,22 +12,39 @@ namespace app.Views.Pages
 {
     public class BrojilaPage : ListPage
     {
-        public BrojilaPage(Action<string> showStatus)
+        private readonly BrojiloService brojiloService;
+        private readonly SearchEntry searchEntry;
+        private readonly ComboBoxText tipFilter;
+        private IList<BrojiloListDto> brojila;
+        private bool hasTriedInitialLoad;
+
+        public BrojilaPage(BrojiloService brojiloService, Action<string> showStatus)
             : base("Brojila", "Serijski brojevi, tipovi brojila, zamene i tehnicke osobine.", showStatus)
         {
-            AddFilter(ViewFactory.Search("Pretraga brojila"));
-            AddFilter(ViewFactory.Combo("Svi tipovi", "JEDNOFAZNO", "TROFAZNO", "PAMETNO", "MEHANICKO", "RASVETNO"));
+            this.brojiloService = brojiloService;
+            brojila = new List<BrojiloListDto>();
+
+            searchEntry = ViewFactory.Search("Pretraga brojila");
+            searchEntry.Changed += (sender, args) => ApplyFilters();
+
+            tipFilter = ViewFactory.Combo("Svi tipovi", "JEDNOFAZNO", "TROFAZNO", "PAMETNO", "MEHANICKO", "RASVETNO");
+            tipFilter.Changed += (sender, args) => ApplyFilters();
+
+            AddFilter(searchEntry);
+            AddFilter(tipFilter);
 
             AddAction("Dodaj", "list-add", "Novo brojilo", (sender, args) =>
-                OpenDialog(new BrojiloDialog(DialogParent), "Brojilo je spremno za cuvanje kroz service sloj."));
+                DodajBrojilo());
             AddAction("Izmeni", "document-edit", "Izmena odabranog brojila", (sender, args) =>
-                Report("Izmena brojila ce koristiti odabrani red i BrojiloService."));
+                IzmeniBrojilo());
             AddAction("Obrisi", "edit-delete", "Brisanje odabranog brojila", (sender, args) =>
-                Report("Brisanje brojila ce ici kroz BrojiloService."));
+                ObrisiBrojilo());
             AddAction("Merenja", "accessories-calculator", "Merenja za odabrano brojilo", (sender, args) =>
-                Report("Merenja odabranog brojila ce se otvoriti kroz MerenjeService."));
+                PrikaziMerenjaZaBrojilo());
             AddAction("Kvar", "dialog-warning", "Prijavi kvar za brojilo", (sender, args) =>
-                OpenDialog(new KvarDialog(DialogParent), "Kvar je spreman za cuvanje kroz service sloj."));
+                Report("Prijava kvara ce se povezati kada implementiramo KvarService."));
+            AddAction("Osvezi", "view-refresh", "Osvezi brojila", (sender, args) =>
+                UcitajBrojila());
 
             SetTable(
                 "Serijski broj",
@@ -31,8 +53,277 @@ namespace app.Views.Pages
                 "Lokacija",
                 "Potrosaci",
                 "Datum instalacije",
-                "Datumi zamene",
+                "Poslednja zamena",
                 "Koeficijent");
+
+            GLib.Idle.Add(() =>
+            {
+                UcitajBrojilaKadaSeStranicaPrikaze();
+                return false;
+            });
+        }
+
+        private void UcitajBrojilaKadaSeStranicaPrikaze()
+        {
+            if (hasTriedInitialLoad)
+            {
+                return;
+            }
+
+            hasTriedInitialLoad = true;
+            UcitajBrojila();
+        }
+
+        private async void UcitajBrojila()
+        {
+            if (!EnsureService("Brojila nisu ucitana jer BrojiloService nije konfigurisan."))
+            {
+                ReplaceRows(new List<string[]>());
+                return;
+            }
+
+            try
+            {
+                Report("Ucitavanje brojila...");
+                var ucitanaBrojila = await brojiloService.VratiBrojila();
+
+                GLib.Idle.Add(() =>
+                {
+                    brojila = ucitanaBrojila;
+                    ApplyFilters();
+                    Report("Ucitanih brojila: " + brojila.Count);
+                    return false;
+                });
+            }
+            catch (Exception ex)
+            {
+                GLib.Idle.Add(() =>
+                {
+                    Report(ex.Message);
+                    return false;
+                });
+            }
+        }
+
+        private void ApplyFilters()
+        {
+            var query = searchEntry.Text ?? string.Empty;
+            var selectedTip = tipFilter.ActiveText;
+
+            var filtered = brojila.AsEnumerable();
+
+            if (!string.IsNullOrWhiteSpace(query))
+            {
+                filtered = filtered.Where(x =>
+                    Contains(x.SerijskiBroj, query)
+                    || Contains(x.Status, query)
+                    || Contains(x.Lokacija, query)
+                    || x.TipoviBrojila.Any(tip => Contains(tip, query)));
+            }
+
+            if (!string.IsNullOrWhiteSpace(selectedTip) && selectedTip != "Svi tipovi")
+            {
+                filtered = filtered.Where(x => x.TipoviBrojila.Contains(selectedTip));
+            }
+
+            var displayedRows = ReplaceRows(filtered.Select(ToRow).ToList());
+
+            if (brojila.Count > 0)
+            {
+                Report("Ucitanih brojila: " + brojila.Count + ", prikazano: " + displayedRows);
+            }
+        }
+
+        private async void DodajBrojilo()
+        {
+            var dialog = new BrojiloDialog(DialogParent);
+
+            while (true)
+            {
+                dialog.ShowAll();
+                var response = (ResponseType)dialog.Run();
+
+                if (response != ResponseType.Ok)
+                {
+                    dialog.Destroy();
+                    return;
+                }
+
+                if (!EnsureService("Brojilo nije sacuvano jer BrojiloService nije konfigurisan."))
+                {
+                    dialog.ShowError("BrojiloService nije konfigurisan. Podesi EPS_TRACKER_ORACLE_CONNECTION_STRING ili ORACLE_CONNECTION_STRING.");
+                    continue;
+                }
+
+                try
+                {
+                    dialog.ClearError();
+                    var dto = dialog.ToSaveDto();
+                    await brojiloService.DodajBrojilo(dto);
+                    UcitajBrojila();
+                    Report("Brojilo je dodato. Serijski broj: " + dto.SerijskiBroj);
+                    dialog.Destroy();
+                    return;
+                }
+                catch (Exception ex)
+                {
+                    dialog.ShowError(ex.Message);
+                    Report("Brojilo nije dodato: " + ex.Message);
+                }
+            }
+        }
+
+        private async void IzmeniBrojilo()
+        {
+            if (!EnsureService("Brojilo ne moze biti ucitano za izmenu jer BrojiloService nije konfigurisan."))
+            {
+                return;
+            }
+
+            var serijskiBroj = SelectedSerijskiBroj();
+
+            if (string.IsNullOrWhiteSpace(serijskiBroj))
+            {
+                Report("Izaberi brojilo za izmenu.");
+                return;
+            }
+
+            try
+            {
+                var brojilo = await brojiloService.VratiBrojilo(serijskiBroj);
+                var dialog = new BrojiloDialog(DialogParent, brojilo);
+
+                while (true)
+                {
+                    dialog.ShowAll();
+                    var response = (ResponseType)dialog.Run();
+
+                    if (response != ResponseType.Ok)
+                    {
+                        dialog.Destroy();
+                        return;
+                    }
+
+                    try
+                    {
+                        dialog.ClearError();
+                        await brojiloService.IzmeniBrojilo(dialog.ToSaveDto());
+                        dialog.Destroy();
+                        UcitajBrojila();
+                        Report("Brojilo je izmenjeno.");
+                        return;
+                    }
+                    catch (Exception ex)
+                    {
+                        dialog.ShowError(ex.Message);
+                        Report("Brojilo nije izmenjeno: " + ex.Message);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Report(ex.Message);
+            }
+        }
+
+        private async void ObrisiBrojilo()
+        {
+            if (!EnsureService("Brojilo ne moze biti obrisano jer BrojiloService nije konfigurisan."))
+            {
+                return;
+            }
+
+            var serijskiBroj = SelectedSerijskiBroj();
+
+            if (string.IsNullOrWhiteSpace(serijskiBroj))
+            {
+                Report("Izaberi brojilo za brisanje.");
+                return;
+            }
+
+            try
+            {
+                await brojiloService.ObrisiBrojilo(serijskiBroj);
+                UcitajBrojila();
+                Report("Brojilo je obrisano.");
+            }
+            catch (Exception ex)
+            {
+                Report(ex.Message);
+            }
+        }
+
+        private async void PrikaziMerenjaZaBrojilo()
+        {
+            if (!EnsureService("Merenja ne mogu biti ucitana jer BrojiloService nije konfigurisan."))
+            {
+                return;
+            }
+
+            var serijskiBroj = SelectedSerijskiBroj();
+
+            if (string.IsNullOrWhiteSpace(serijskiBroj))
+            {
+                Report("Izaberi brojilo.");
+                return;
+            }
+
+            try
+            {
+                var merenja = await brojiloService.VratiMerenjaZaBrojilo(serijskiBroj);
+                var datumi = string.Join(", ", merenja
+                    .Take(5)
+                    .Select(x => x.DatumVremeMerenja.ToString("yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture)));
+
+                Report(merenja.Count == 0
+                    ? "Brojilo nema evidentirana merenja."
+                    : "Merenja brojila: " + datumi);
+            }
+            catch (Exception ex)
+            {
+                Report(ex.Message);
+            }
+        }
+
+        private string SelectedSerijskiBroj()
+        {
+            return SelectedValue(0);
+        }
+
+        private bool EnsureService(string message)
+        {
+            if (brojiloService != null)
+            {
+                return true;
+            }
+
+            Report(message + " Podesi EPS_TRACKER_ORACLE_CONNECTION_STRING ili ORACLE_CONNECTION_STRING.");
+            return false;
+        }
+
+        private static string[] ToRow(BrojiloListDto brojilo)
+        {
+            return new[]
+            {
+                brojilo.SerijskiBroj ?? string.Empty,
+                string.Join(", ", brojilo.TipoviBrojila),
+                brojilo.Status ?? string.Empty,
+                brojilo.Lokacija ?? string.Empty,
+                brojilo.BrojPotrosaca.ToString(CultureInfo.InvariantCulture),
+                brojilo.DatumInstalacije.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture),
+                brojilo.PoslednjiDatumZamene.HasValue
+                    ? brojilo.PoslednjiDatumZamene.Value.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture)
+                    : string.Empty,
+                brojilo.KoeficijentMnozenja.HasValue
+                    ? brojilo.KoeficijentMnozenja.Value.ToString(CultureInfo.InvariantCulture)
+                    : string.Empty
+            };
+        }
+
+        private static bool Contains(string value, string query)
+        {
+            return value != null
+                && value.IndexOf(query, StringComparison.OrdinalIgnoreCase) >= 0;
         }
     }
 }

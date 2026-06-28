@@ -8,7 +8,7 @@ namespace app.Views
     {
         private readonly Label statusLabel;
 
-        public MainWindow(PotrosacService potrosacService)
+        public MainWindow(PotrosacService potrosacService, BrojiloService brojiloService)
             : base("EPS Tracker")
         {
             SetDefaultSize(1280, 760);
@@ -33,7 +33,7 @@ namespace app.Views
             };
 
             notebook.AppendPage(new PotrosaciPage(potrosacService, SetStatus), new Label("Potrosaci"));
-            notebook.AppendPage(new BrojilaPage(SetStatus), new Label("Brojila"));
+            notebook.AppendPage(new BrojilaPage(brojiloService, SetStatus), new Label("Brojila"));
             notebook.AppendPage(new MerenjaPage(SetStatus), new Label("Merenja"));
             notebook.AppendPage(new RacuniPage(SetStatus), new Label("Racuni"));
             notebook.AppendPage(new KvaroviPage(SetStatus), new Label("Kvarovi"));
